@@ -16,4 +16,8 @@ export class HomeComponent implements OnInit {
   toPause() {
     this.router.navigate(['/pauze'])
   }
+
+  toMeetings() {
+    this.router.navigate(['/meetings'])
+  }
 }

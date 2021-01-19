@@ -10,6 +10,7 @@ import { SharedModule } from './shared/shared.module';
 import { HomeModule } from './home/home.module';
 import { PauseModule } from './pause/pause.module';
 import { AuthModule } from './auth/auth.module';
+import { MeetingsModule } from './meetings/meetings.module';
 
 import { MatToolbarModule } from '@angular/material/toolbar';
 
@@ -26,6 +27,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     HomeModule,
     PauseModule,
     AuthModule,
+    MeetingsModule,
     MatToolbarModule
   ],
   providers: [],
