@@ -1,6 +1,9 @@
+// Page & Card style
 .page {
-    margin: 1rem;
+    padding: 1rem;
+    margin: 0 auto;
     text-align: center;
+    max-width: 1000px;
 }
 
 .page-buttons {
@@ -12,4 +15,19 @@ button {
     margin: 1rem;
     padding: 0.5rem;
     width: 10rem;
+}
+
+.info-card {
+    margin: auto;
+    max-width: 600px;
+}
+
+// forms
+.login-form {
+    margin: auto;
+    width: 80%;
+
+    mat-form-field {
+        width: 100%;
+    }
 }

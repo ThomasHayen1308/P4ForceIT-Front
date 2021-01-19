@@ -9,6 +9,7 @@ import { HeaderComponent } from './header/header.component';
 import { SharedModule } from './shared/shared.module';
 import { HomeModule } from './home/home.module';
 import { PauseModule } from './pause/pause.module';
+import { AuthModule } from './auth/auth.module';
 
 import { MatToolbarModule } from '@angular/material/toolbar';
 
@@ -24,6 +25,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     SharedModule,
     HomeModule,
     PauseModule,
+    AuthModule,
     MatToolbarModule
   ],
   providers: [],
