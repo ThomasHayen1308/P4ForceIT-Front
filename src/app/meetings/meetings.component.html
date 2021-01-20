@@ -47,6 +47,9 @@
                 <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
             </div>
         </div>
+        <div *ngIf="showMeetings.length <= 0">
+            <h3>Er zijn geen meetings gevonden</h3>
+        </div>
         <div class="page-buttons">
             <p>
                 <button mat-raised-button (click)="toHome()">Hoofdmenu</button>
