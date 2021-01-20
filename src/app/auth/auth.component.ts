@@ -1,4 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { NgForm } from '@angular/forms';
+import { Subscription } from 'rxjs';
+
+import { UserLogin } from './models/user-login.model';
+
+import { AuthService } from './auth.service';
 
 @Component({
   selector: 'app-auth',
@@ -8,9 +14,20 @@ import { Component, OnInit } from '@angular/core';
 export class AuthComponent implements OnInit {
   hide = true;
 
-  constructor() { }
+  userLogin: UserLogin;
+
+  userSubscription: Subscription;
+
+  constructor(private authService: AuthService) { }
 
   ngOnInit(): void {
   }
 
+  onSubmit(authForm: NgForm) {
+    const value = authForm.value;
+    this.userLogin = new UserLogin(value.email, value.password);
+
+    this.authService.login(this.userLogin);
+    authForm.reset();
+  }
 }
