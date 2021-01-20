@@ -3,18 +3,25 @@
         <h1>Pauze</h1>
         <hr>
         <p>Drukte in de pauzeruimtes:</p>
-        <p>Keuken corda 1 : 5</p>
+        <div *ngFor="let k of (kitchens|async)">
+            <p>{{k.campus.name}} : {{k.aantalPersonen}} / {{k.maxPersonen}}</p>
         <mat-card class="info-card">
-            <p>Het is redelijk druk.</p>
-            <mat-progress-bar mode="determinate" value="80" color="warn"></mat-progress-bar>
+            <div *ngIf="(k.aantalPersonen/k.maxPersonen)*100 <=40">
+            <p>Je mag gerust even koffie gaan halen!</p>
+            <mat-progress-bar mode="determinate" value="{{(k.aantalPersonen/k.maxPersonen)*100}}" color="accent"></mat-progress-bar>
+            </div>
+            <div *ngIf="40 < (k.aantalPersonen/k.maxPersonen)*100 && (k.aantalPersonen/k.maxPersonen)*100 <=80">
+                <p>Het is redelijk druk...</p>
+                <mat-progress-bar mode="determinate" value="{{(k.aantalPersonen/k.maxPersonen)*100}}" color="primary"></mat-progress-bar>
+            </div>
+            <div *ngIf="80 < (k.aantalPersonen/k.maxPersonen)*100">
+                <p>Het is ten sterkste afgeraden nu naar de keuken te gaan!</p>
+                <mat-progress-bar mode="determinate" value="{{(k.aantalPersonen/k.maxPersonen)*100}}" color="warn"></mat-progress-bar>
+            </div>
+            
         </mat-card>
         <br>
-        <p>Keuken corda 2 : 1</p>
-        <mat-card class="info-card">
-            <p>Je mag gerust even koffie gaan halen.</p>
-            <mat-progress-bar mode="determinate" value="20" color="accent"></mat-progress-bar>
-        </mat-card>
-        <br>
+        </div>        
         <div class="page-buttons">
             <p>
                 <button mat-raised-button (click)="toHome()">Hoofdmenu</button>
