@@ -17,6 +17,10 @@ export class HomeComponent implements OnInit {
     this.router.navigate(['/pauze'])
   }
 
+  toMyReservations() {
+    this.router.navigate(['/mijn-reserveringen'])
+  }
+
   toMeetings() {
     this.router.navigate(['/meetings'])
   }

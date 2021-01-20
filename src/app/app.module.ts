@@ -12,6 +12,7 @@ import { HomeModule } from './home/home.module';
 import { PauseModule } from './pause/pause.module';
 import { AuthModule } from './auth/auth.module';
 import { MeetingsModule } from './meetings/meetings.module';
+import { MyReservationsModule } from './my-reservations/my-reservations.module';
 
 import { MatToolbarModule } from '@angular/material/toolbar';
 
@@ -32,6 +33,7 @@ import { AuthInterceptor } from './auth/auth.interceptor';
     PauseModule,
     AuthModule,
     MeetingsModule,
+    MyReservationsModule,
     MatToolbarModule
   ],
   providers: [
