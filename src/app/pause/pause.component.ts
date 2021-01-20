@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
+import { Kitchen } from '../models/kitchen.model';
+import { KitchenService } from '../services/kitchen.service';
 
 @Component({
   selector: 'app-pause',
@@ -8,9 +11,16 @@ import { Router } from '@angular/router';
 })
 export class PauseComponent implements OnInit {
 
-  constructor(private router: Router) { }
+  kitchens: Observable<Kitchen[]>;
+
+  pageLoaded: boolean = false;
+
+  constructor(private router: Router, private _kitchenService: KitchenService) {
+   }
 
   ngOnInit(): void {
+    this.kitchens = this._kitchenService.getKitchens();
+    
   }
 
   toHome() {
