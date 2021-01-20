@@ -4,10 +4,19 @@ import { Subscription } from 'rxjs';
 
 import { MeetingService } from '../services/meeting.service';
 
+import { Meeting } from '../models/meeting.model';
+
 // imports for mat-table
 import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { Meeting } from '../models/meeting.model';
+
+interface ShowMeeting {
+  datum: Date;
+  ruimtenaam: String;
+  bedrijfsnaam: String;
+  aantalPersonen: number;
+}
 
 @Component({
   selector: 'app-meetings',
@@ -15,13 +24,15 @@ import { Meeting } from '../models/meeting.model';
   styleUrls: ['./meetings.component.scss', '../styles/page_style.scss']
 })
 export class MeetingsComponent implements OnInit {
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-
-  displayedColumns: string[] = ['datum', 'ruimte', 'bedrijf', 'aantalpersonen'];
+  displayedColumns: string[] = ['datum', 'ruimtenaam', 'bedrijfsnaam', 'aantalPersonen'];
 
   meetings: Meeting[] = [];
+  showMeetings: ShowMeeting[] = []
 
-  dataSource = new MatTableDataSource(this.meetings);
+  dataSource = new MatTableDataSource(this.showMeetings);
+
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort, {static: false}) sort: MatSort;
 
   private meetingsSub: Subscription;
 
@@ -30,17 +41,34 @@ export class MeetingsComponent implements OnInit {
   ngOnInit(): void {
     this.meetingService.getMeetings();
     this.meetingsSub = this.meetingService.getMeetingsUpdateListener().subscribe((meetings: Meeting[]) => {
-      this.meetings = meetings;
-      this.dataSource = new MatTableDataSource(this.meetings);
+      meetings.map(meeting => {
+        this.showMeetings.push({
+          datum: meeting.datum,
+          ruimtenaam: meeting.ruimte.name,
+          bedrijfsnaam: meeting.bedrijfsnaam,
+          aantalPersonen: meeting.aantalPersonen
+        })
+      });
+      this.dataSource = new MatTableDataSource(this.showMeetings);
     })
   }
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
+  }
+
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
   }
 
   toHome() {
     this.router.navigate(['/home'])
   }
-  
+
 }
