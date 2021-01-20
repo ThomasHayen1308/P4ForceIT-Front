@@ -3,22 +3,22 @@
         <h1>Login</h1>
         <hr>
         <p>Login met je Elision Plan account.</p>
-        <form class="login-form">
+        <form class="login-form" #authForm="ngForm" (ngSubmit)="onSubmit(authForm)">
             <mat-form-field>
                 <mat-label>Email</mat-label>
-                <input matInput placeholder="Ex. dirk.janssens@Elision.com">
+                <input matInput placeholder="Ex. dirk.janssens@Elision.com" name="email" id="email" #email="ngModel" ngModel required email>
+                <mat-error *ngIf="email.invalid">Vul een correct email in!</mat-error>
             </mat-form-field>
-        </form>
-        <form class="login-form">
             <mat-form-field>
                 <mat-label>Paswoord</mat-label>
-                <input matInput [type]="hide ? 'password' : 'text'">
+                <input matInput [type]="hide ? 'password' : 'text'" name="password" id="password" #password="ngModel" ngModel required>
+                <mat-error *ngIf="password.invalid">Vul een correct passwoord in!</mat-error>
                 <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
                     [attr.aria-pressed]="hide">
                     <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
                 </button>
             </mat-form-field>
-            <button mat-stroked-button color="accent">Login</button>
+            <button mat-stroked-button color="accent" type="submit" [disabled]="!authForm.valid">Login</button>
         </form>
     </mat-card>
 </div>

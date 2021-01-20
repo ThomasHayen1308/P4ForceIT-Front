@@ -8,7 +8,7 @@ import { Meeting } from '../models/meeting.model';
     providedIn: 'root'
 })
 export class MeetingService {
-    baseUrl: string = 'http://localhost:8080'
+    baseUrl: string = 'http://localhost:8080/'
 
     private meetings: Meeting[] = [];
     private meetingsUpdated = new Subject<Meeting[]>();
@@ -16,7 +16,7 @@ export class MeetingService {
     constructor(private http: HttpClient) { }
 
     getMeetings() {
-        return this.http.get<Meeting[]>(this.baseUrl + '/meetings').subscribe((meetings) => {
+        return this.http.get<Meeting[]>(this.baseUrl + 'meetings').subscribe((meetings) => {
             this.meetings = meetings;
             this.meetingsUpdated.next([...this.meetings]);
         });

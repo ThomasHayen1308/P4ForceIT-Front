@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 import { AuthComponent } from './auth.component';
 
@@ -13,6 +14,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
   imports: [
     CommonModule,
     SharedModule,
+    FormsModule,
     MatInputModule,
     MatFormFieldModule
   ]
