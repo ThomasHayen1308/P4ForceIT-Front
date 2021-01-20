@@ -5,12 +5,14 @@ import { HomeComponent } from './home/home.component';
 import { PauseComponent } from './pause/pause.component';
 import { AuthComponent } from './auth/auth.component';
 import { MeetingsComponent } from './meetings/meetings.component';
+import { MyReservationsComponent } from './my-reservations/my-reservations.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
   { path: 'pauze', component: PauseComponent },
   { path: 'meetings', component: MeetingsComponent },
+  { path: 'mijn-reserveringen', component: MyReservationsComponent },
 
   { path: 'login', component: AuthComponent }
 ];
