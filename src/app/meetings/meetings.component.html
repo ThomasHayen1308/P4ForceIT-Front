@@ -2,7 +2,7 @@
     <mat-card>
         <h1>Meetings bekijken</h1>
         <hr>
-        <div *ngIf="showMeetings.length > 0">
+        <div *ngIf="showMeetings.length > 0 && pageLoaded">
             <mat-form-field>
                 <mat-label>Filter</mat-label>
                 <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Elision" #input>
@@ -47,8 +47,11 @@
                 <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
             </div>
         </div>
-        <div *ngIf="showMeetings.length <= 0">
+        <div *ngIf="showMeetings.length <= 0 && pageLoaded">
             <h3>Er zijn geen meetings gevonden</h3>
+        </div>
+        <div *ngIf="!pageLoaded">
+            <mat-progress-spinner style="margin: auto;" mode="indeterminate" color="primary"></mat-progress-spinner>
         </div>
         <div class="page-buttons">
             <p>
