@@ -1,13 +1,27 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 
-import {MatPaginator} from '@angular/material/paginator';
-import {MatTableDataSource} from '@angular/material/table';
-import {animate, state, style, transition, trigger} from '@angular/animations';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
+import { animate, state, style, transition, trigger } from '@angular/animations';
+import { MatDialog } from '@angular/material/dialog';
 
 import { Reservation } from '../models/reservation.model';
 
-import {ReservationService} from '../services/reservation.service';
+import { ReservationService } from '../services/reservation.service';
+
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Inject } from '@angular/core';
+import { Subscription } from 'rxjs';
+
+interface showReservationForUser {
+  id: number,
+  periode: String,
+  date: Date,
+  chair: String,
+  campus: String,
+  section: String,
+}
 
 @Component({
   selector: 'app-my-reservations',
@@ -15,27 +29,49 @@ import {ReservationService} from '../services/reservation.service';
   styleUrls: ['./my-reservations.component.scss', '../styles/page_style.scss'],
   animations: [
     trigger('detailExpand', [
-      state('collapsed', style({height: '0px', minHeight: '0'})),
-      state('expanded', style({height: '*'})),
+      state('collapsed', style({ height: '0px', minHeight: '0' })),
+      state('expanded', style({ height: '*' })),
       transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
     ]),
   ],
 })
-export class MyReservationsComponent implements OnInit {
+export class MyReservationsComponent implements OnInit, OnDestroy {
   reservationsForUser: Reservation[] = [];
-  dataSource = new MatTableDataSource<Reservation>(this.reservationsForUser);
+  showReservationsForUser: showReservationForUser[] = [];
+
+  dataSource = new MatTableDataSource<showReservationForUser>(this.showReservationsForUser);
   columnsToDisplay = ['Datum', 'Campus', 'Sectie', 'Stoel'];
   expandedElement: Reservation | null;
 
+  deleteReservationSub: Subscription;
+
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  constructor(private router: Router, private reservationService: ReservationService) { }
+  pageLoaded: boolean = true;
+
+  constructor(private router: Router, private reservationService: ReservationService, public dialog: MatDialog) { }
 
   ngOnInit(): void {
+    this.pageLoaded = false;
+    this.deleteReservationSub = this.reservationService.reservationDelete.subscribe(() => {
+      this.showReservationsForUser = [];
+      this.ngOnInit();
+    })
+
     this.reservationService.getReservationsByUserId(1).subscribe((reservations: Reservation[]) => {
       this.reservationsForUser = reservations;
-      console.log(reservations);
-      this.dataSource = new MatTableDataSource(this.reservationsForUser);
+      reservations.map((reservation) => {
+        this.showReservationsForUser.push({
+          id: reservation.id,
+          periode: reservation.period,
+          date: reservation.date,
+          chair: reservation.chair.name,
+          campus: reservation.chair.section.campus.name,
+          section: reservation.chair.section.name,
+        })
+      })
+      this.dataSource = new MatTableDataSource(this.showReservationsForUser);
+      this.pageLoaded = true;
     })
   }
 
@@ -45,5 +81,42 @@ export class MyReservationsComponent implements OnInit {
 
   toHome() {
     this.router.navigate(['/home'])
+  }
+
+  openDialog(element: showReservationForUser) {
+
+    this.dialog.open(DialogCancel, {
+      data: {
+        currentReservation: element
+      }
+    });
+  }
+
+  ngOnDestroy() {
+    this.deleteReservationSub.unsubscribe();
+  }
+}
+
+
+// DialogCancel Component => kan eventueel nog in andere file gezet worden
+@Component({
+  selector: 'dialog-cancel',
+  templateUrl: 'dialog-cancel.html',
+})
+export class DialogCancel {
+  currentReservation: showReservationForUser;
+
+  constructor(
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    private reservationService: ReservationService
+  ) { }
+
+  ngOnInit() {
+    this.currentReservation = this.data.currentReservation;
+    // console.log(this.currentReservation);
+  }
+
+  onDelete() {
+    this.reservationService.deleteReservation(this.currentReservation.id);
   }
 }

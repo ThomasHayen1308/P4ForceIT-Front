@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
 import { Chair } from '../models/chair.model';
+import { Injectable, OnDestroy } from '@angular/core';
+import { Subject, Subscription } from 'rxjs';
 
 import { Reservation } from '../models/reservation.model';
 import { Section } from '../models/section.model';
@@ -8,8 +9,12 @@ import { Section } from '../models/section.model';
 @Injectable({
     providedIn: 'root'
 })
-export class ReservationService {
+export class ReservationService implements OnDestroy {
     baseUrl: string = 'http://localhost:8080/'
+
+    deleteReservationSub: Subscription;
+
+    reservationDelete = new Subject<number>();
 
     constructor(private http: HttpClient) { }
 
@@ -23,5 +28,14 @@ export class ReservationService {
 
     getChairsBySectionId(sectionId: number){
         return this.http.get<Chair[]>(this.baseUrl+"reservations/section/"+sectionId+"/chairs");
+    }
+    deleteReservation(reservationId: number) {
+        this.deleteReservationSub = this.http.delete(this.baseUrl + 'reservations/' + reservationId).subscribe(() => {
+            this.reservationDelete.next(reservationId);
+        })
+    }
+
+    ngOnDestroy() {
+        this.deleteReservationSub.unsubscribe();
     }
 }

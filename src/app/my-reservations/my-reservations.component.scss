@@ -45,3 +45,20 @@ table {
   .example-element-description-attribution {
     opacity: 0.5;
   }
+
+  .example-element-detail {
+    width: 100%;
+  }
+
+  .border-top-grey {
+    border-top: 1px solid #E0E0E0;
+  }
+
+  .actions {
+    width: 100%;
+    text-align: right; 
+    button {
+      margin: 0px;
+      width: auto;
+    }
+  }
