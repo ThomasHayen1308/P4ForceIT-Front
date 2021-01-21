@@ -19,6 +19,8 @@ export class MenuComponent implements OnInit {
 
   toReserveMeeting(){}
 
-  toReserveDesk(){}
+  toReserveDesk(){
+    this.router.navigate(['/reserveren/bureau'])
+  }
 
 }
