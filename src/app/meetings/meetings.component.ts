@@ -12,10 +12,10 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 
 interface ShowMeeting {
-  datum: Date;
-  ruimtenaam: String;
-  bedrijfsnaam: String;
-  aantalPersonen: number;
+  date: Date;
+  meetingRoom: String;
+  companyName: String;
+  numberOfPersons: number;
 }
 
 @Component({
@@ -32,7 +32,7 @@ export class MeetingsComponent implements OnInit {
   dataSource = new MatTableDataSource(this.showMeetings);
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
-  @ViewChild(MatSort, {static: false}) sort: MatSort;
+  @ViewChild(MatSort, { static: false }) sort: MatSort;
 
   private meetingsSub: Subscription;
 
@@ -41,12 +41,12 @@ export class MeetingsComponent implements OnInit {
   ngOnInit(): void {
     this.meetingService.getMeetings();
     this.meetingsSub = this.meetingService.getMeetingsUpdateListener().subscribe((meetings: Meeting[]) => {
-      meetings.map(meeting => {
+      meetings.map((meeting: Meeting) => {
         this.showMeetings.push({
-          datum: meeting.datum,
-          ruimtenaam: meeting.ruimte.name,
-          bedrijfsnaam: meeting.bedrijfsnaam,
-          aantalPersonen: meeting.aantalPersonen
+          date: meeting.date,
+          meetingRoom: meeting.meetingRoom.name,
+          companyName: meeting.companyName,
+          numberOfPersons: meeting.numberOfPersons
         })
       });
       this.dataSource = new MatTableDataSource(this.showMeetings);

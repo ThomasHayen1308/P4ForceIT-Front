@@ -1,11 +1,13 @@
-import { Ruimte } from './ruimte.model';
+import { MeetingRoom } from './meeting-room.model';
 
-export interface Meeting {
-    id: number;
-    periode: String;
-    datum: Date;
-    bedrijfsnaam: String;
-    aantalPersonen: number;
-    ruimte: Ruimte;
-    users?: string;
+export class Meeting {
+    constructor(
+        public id: number,
+        public period: String,
+        public date: Date,
+        public companyName: String,
+        public numberOfPersons: number,
+        public meetingRoom: MeetingRoom,
+        public users?: String
+    ) { }
 }
