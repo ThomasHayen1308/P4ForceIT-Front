@@ -11,7 +11,7 @@ import { KitchenService } from '../services/kitchen.service';
 })
 export class PauseComponent implements OnInit {
 
-  kitchens: Observable<Kitchen[]>;
+  kitchens: Kitchen[];
 
   pageLoaded: boolean = false;
 
@@ -19,7 +19,10 @@ export class PauseComponent implements OnInit {
    }
 
   ngOnInit(): void {
-    this.kitchens = this._kitchenService.getKitchens();
+    this._kitchenService.getKitchens().subscribe((kitchens) =>{
+      this.kitchens = kitchens;
+      this.pageLoaded = true;
+    });
     
   }
 

@@ -5,6 +5,7 @@ import { PauseComponent } from './pause.component';
 import { SharedModule } from '../shared/shared.module';
 
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 
 @NgModule({
@@ -12,7 +13,8 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
   imports: [
     CommonModule,
     SharedModule,
-    MatProgressBarModule
+    MatProgressBarModule,
+    MatProgressSpinnerModule
   ]
 })
 export class PauseModule { }
