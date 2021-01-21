@@ -13,12 +13,16 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  toReservations(){
+    this.router.navigate(['/reserveren'])
+  }
+
   toPause() {
     this.router.navigate(['/pauze'])
   }
 
   toMyReservations() {
-    this.router.navigate(['/mijn-reserveringen'])
+    this.router.navigate(['/mijn-reservaties'])
   }
 
   toMeetings() {
