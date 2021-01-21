@@ -26,6 +26,8 @@ interface ShowMeeting {
 export class MeetingsComponent implements OnInit {
   displayedColumns: string[] = ['datum', 'ruimtenaam', 'bedrijfsnaam', 'aantalPersonen'];
 
+  pageLoaded: boolean = true;
+
   meetings: Meeting[] = [];
   showMeetings: ShowMeeting[] = []
 
@@ -39,6 +41,7 @@ export class MeetingsComponent implements OnInit {
   constructor(private router: Router, private meetingService: MeetingService) { }
 
   ngOnInit(): void {
+    this.pageLoaded = false;
     this.meetingService.getMeetings();
     this.meetingsSub = this.meetingService.getMeetingsUpdateListener().subscribe((meetings: Meeting[]) => {
       meetings.map((meeting: Meeting) => {
@@ -50,6 +53,7 @@ export class MeetingsComponent implements OnInit {
         })
       });
       this.dataSource = new MatTableDataSource(this.showMeetings);
+      this.pageLoaded = true;
     })
   }
 
