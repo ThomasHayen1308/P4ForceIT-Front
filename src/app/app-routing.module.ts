@@ -7,11 +7,16 @@ import { AuthComponent } from './auth/auth.component';
 import { MeetingsComponent } from './meetings/meetings.component';
 import { MyReservationsComponent } from './my-reservations/my-reservations.component';
 import { MenuComponent } from './reservations/menu/menu.component'
+import {ReserveDeskComponent} from './reservations/reserve-desk/reserve-desk.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
-  { path: 'reserveren', component: MenuComponent},
+  { path: 'reserveren', children: [
+    { path: '', component: MenuComponent},
+    {path: 'bureau', component: ReserveDeskComponent}
+    ]
+  },
   { path: 'pauze', component: PauseComponent },
   { path: 'meetings', component: MeetingsComponent },
   { path: 'mijn-reservaties', component: MyReservationsComponent },
