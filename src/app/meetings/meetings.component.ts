@@ -34,7 +34,7 @@ export class MeetingsComponent implements OnInit {
   dataSource = new MatTableDataSource(this.showMeetings);
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
-  @ViewChild(MatSort, { static: false }) sort: MatSort;
+  // @ViewChild(MatSort, { static: false }) sort: MatSort;
 
   private meetingsSub: Subscription;
 
@@ -59,7 +59,7 @@ export class MeetingsComponent implements OnInit {
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
+    // this.dataSource.sort = this.sort;
   }
 
   applyFilter(event: Event) {
