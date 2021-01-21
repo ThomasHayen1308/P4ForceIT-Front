@@ -9,29 +9,29 @@
             </mat-form-field>
 
             <div class="mat-elevation-z8">
-                <table mat-table [dataSource]="dataSource" matSort>
+                <table mat-table [dataSource]="dataSource"> <!--matSort-->
 
                     <!-- Datum Column -->
                     <ng-container matColumnDef="datum">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Datum </th>
+                        <th mat-header-cell *matHeaderCellDef> Datum </th> <!--mat-sort-header-->
                         <td mat-cell *matCellDef="let meeting"> {{meeting.date | date}} </td>
                     </ng-container>
 
                     <!-- Ruimte Column -->
                     <ng-container matColumnDef="ruimtenaam">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Ruimte </th>
+                        <th mat-header-cell *matHeaderCellDef> Ruimte </th> <!--mat-sort-header-->
                         <td mat-cell *matCellDef="let meeting"> {{meeting.meetingRoom}} </td>
                     </ng-container>
 
                     <!-- Bedrijf Column -->
                     <ng-container matColumnDef="bedrijfsnaam">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Bedrijf </th>
+                        <th mat-header-cell *matHeaderCellDef> Bedrijf </th> <!--mat-sort-header-->
                         <td mat-cell *matCellDef="let meeting"> {{meeting.companyName}} </td>
                     </ng-container>
 
                     <!-- # personen Column -->
                     <ng-container matColumnDef="aantalPersonen">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header> # personen </th>
+                        <th mat-header-cell *matHeaderCellDef> # personen </th> <!--mat-sort-header-->
                         <td mat-cell *matCellDef="let meeting"> {{meeting.numberOfPersons}} </td>
                     </ng-container>
 
