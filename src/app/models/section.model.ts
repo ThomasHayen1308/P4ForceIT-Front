@@ -1,10 +1,9 @@
 import { Campus } from './campus.model';
 
-export class Kitchen {
+export class Section {
     constructor(
         public id: number,
-        public numberOfPersons: number,
-        public maxPersons: number,
+        public name: String,
         public campus: Campus
     ) { }
 }

@@ -50,7 +50,7 @@ export class AuthService {
 
     private authenticationHandler(currentUser: User) {
         this.user.next(currentUser);
-        localStorage.setItem("userToken", JSON.stringify(currentUser.token));
+        // localStorage.setItem("userToken", JSON.stringify(currentUser.token));
         this.router.navigate(['/home']);
     }
 }
