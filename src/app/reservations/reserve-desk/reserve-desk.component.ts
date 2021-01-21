@@ -12,7 +12,7 @@ import { ReservationService } from 'src/app/services/reservation.service';
 })
 export class ReserveDeskComponent implements OnInit {
 
-  showMaps: boolean = true;
+  planImgPath: string = "/assets/Grondplan_Corda_2.png";
 
   showDetails: boolean = false;
 
@@ -37,13 +37,9 @@ export class ReserveDeskComponent implements OnInit {
 
   setCampus(id: number){
     this.campusId = id;
-  }
-
-  toDetails(){
     this._reservationService.getSectionsByCampusId(this.campusId).subscribe((sections)=>{
       this.sections = sections;
     })
-    this.showMaps = false;
     this.showDetails = true;
   }
 
