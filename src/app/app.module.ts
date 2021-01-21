@@ -18,11 +18,13 @@ import { ReservationsModule } from './reservations/reservations.module';
 import { MatToolbarModule } from '@angular/material/toolbar';
 
 import { AuthInterceptor } from './auth/auth.interceptor';
+import { ErrorPageComponent } from './error-page/error-page.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    HeaderComponent
+    HeaderComponent,
+    ErrorPageComponent
   ],
   imports: [
     BrowserModule,
