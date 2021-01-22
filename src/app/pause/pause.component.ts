@@ -21,7 +21,6 @@ export class PauseComponent implements OnInit {
   ngOnInit(): void {
     this._kitchenService.getKitchens().subscribe((kitchens) =>{
       this.kitchens = kitchens;
-      console.log(this.kitchens)
       this.pageLoaded = true;
     });
     

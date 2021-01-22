@@ -1,8 +1,68 @@
 @import '~@angular/material/theming';
 @include mat-core();
 
-$my-app-primary: mat-palette($mat-teal);
-$my-app-accent:  mat-palette($mat-green, 400);
+
+
+$custom-primary:( 
+      50: #e3f5ff,
+      100: #b7e5ff,
+      200: #89d4ff,
+      300: #5ec3ff,
+      400: #46b6ff,
+      500: #3fa9fe,
+      600: #3d9bee,
+      700: #3a87d9,
+      800: #3676c4,
+      900: #3056a1,
+      contrast: (
+    50: $light-primary-text,
+    100: $light-primary-text,
+    200: $light-primary-text,
+    300: $light-primary-text,
+    400: $light-primary-text,
+    500: $light-primary-text,
+    600: $light-primary-text,
+    700: $light-primary-text,
+    800: $light-primary-text,
+    900: $light-primary-text,
+    A100: $light-primary-text,
+    A200: $light-primary-text,
+    A400: $light-primary-text,
+    A700: $light-primary-text,
+  )
+);
+
+$custom-secondary:( 
+      50: #e8ebf4,
+      100: #c5cce5,
+      200: #9facd3,
+      300: #798cc1,
+      400: #5c72b4,
+      500: #3e5aa8,
+      600: #38529f,
+      700: #2f4893,
+      800: #273e86,
+      900: #182d72,
+      contrast: (
+    50: $light-primary-text,
+    100: $light-primary-text,
+    200: $light-primary-text,
+    300: $light-primary-text,
+    400: $light-primary-text,
+    500: $light-primary-text,
+    600: $light-primary-text,
+    700: $light-primary-text,
+    800: $light-primary-text,
+    900: $light-primary-text,
+    A100: $light-primary-text,
+    A200: $light-primary-text,
+    A400: $light-primary-text,
+    A700: $light-primary-text,
+  )
+);
+
+$my-app-primary: mat-palette($custom-primary, 900);
+$my-app-accent:  mat-palette($custom-secondary, 400);
 $my-app-warn:    mat-palette($mat-deep-orange);
 
 $my-app-theme: mat-light-theme($my-app-primary, $my-app-accent, $my-app-warn);

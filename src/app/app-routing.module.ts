@@ -8,7 +8,9 @@ import { MeetingsComponent } from './meetings/meetings.component';
 import { MyReservationsComponent } from './my-reservations/my-reservations.component';
 import { MenuComponent } from './reservations/menu/menu.component'
 import { ReserveDeskComponent } from './reservations/reserve-desk/reserve-desk.component';
+import { ReserveMeetingRoomComponent } from './reservations/reserve-meeting-room/reserve-meeting-room.component';
 import { ErrorPageComponent } from './error-page/error-page.component';
+
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -16,7 +18,8 @@ const routes: Routes = [
   {
     path: 'reserveren', children: [
       { path: '', component: MenuComponent },
-      { path: 'bureau', component: ReserveDeskComponent }
+      { path: 'bureau', component: ReserveDeskComponent },
+      { path: 'ruimte', component: ReserveMeetingRoomComponent }
     ]
   },
   { path: 'pauze', component: PauseComponent },
