@@ -3,6 +3,8 @@ import { Chair } from '../models/chair.model';
 import { Injectable, OnDestroy } from '@angular/core';
 import { Subject, Subscription } from 'rxjs';
 
+import { environment } from './../../environments/environment';
+
 import { Reservation } from '../models/reservation.model';
 import { Section } from '../models/section.model';
 
@@ -10,7 +12,7 @@ import { Section } from '../models/section.model';
     providedIn: 'root'
 })
 export class ReservationService implements OnDestroy {
-    baseUrl: string = 'http://localhost:8080/'
+    baseUrl: string = environment.apiUrl;
 
     deleteReservationSub: Subscription;
 
