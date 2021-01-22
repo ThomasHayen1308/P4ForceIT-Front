@@ -12,7 +12,7 @@ import { ReservationService } from 'src/app/services/reservation.service';
 })
 export class ReserveDeskComponent implements OnInit {
 
-  planImgPath: string = "/assets/Grondplan_Corda_2.png";
+  planImgPath: string = "/assets/Grondplan_Corda_1.png";
 
   showDetails: boolean = false;
 
@@ -37,6 +37,11 @@ export class ReserveDeskComponent implements OnInit {
 
   setCampus(id: number){
     this.campusId = id;
+    switch(this.campusId){
+      case 7: this.planImgPath = "/assets/Grondplan_Corda_2.png"; break;
+      default: this.planImgPath = "/assets/Grondplan_Corda_1.png"; break; 
+    }
+
     this._reservationService.getSectionsByCampusId(this.campusId).subscribe((sections)=>{
       this.sections = sections;
     })
