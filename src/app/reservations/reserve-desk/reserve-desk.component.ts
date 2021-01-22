@@ -12,6 +12,8 @@ import { ReservationService } from 'src/app/services/reservation.service';
 })
 export class ReserveDeskComponent implements OnInit {
 
+  pageLoaded: boolean = true;
+
   planImgPath: string = "/assets/Grondplan_Corda_1.png";
 
   showDetails: boolean = false;
