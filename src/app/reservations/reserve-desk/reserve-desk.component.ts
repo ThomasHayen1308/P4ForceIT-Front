@@ -44,6 +44,8 @@ export class ReserveDeskComponent implements OnInit {
       default: this.planImgPath = "/assets/Grondplan_Corda_1.png"; break; 
     }
 
+    this.newReservation.chair = null;
+
     this._reservationService.getSectionsByCampusId(this.campusId).subscribe((sections)=>{
       this.sections = sections;
     })
