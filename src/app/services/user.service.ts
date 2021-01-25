@@ -14,6 +14,6 @@ export class UserService {
     constructor(private http: HttpClient) { }
 
     getUserById(userID: number) {
-        return this.http.get<User>('users/' + userID);
+        return this.http.get<User>(this.baseUrl + 'users/' + userID);
     }
 }

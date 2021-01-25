@@ -5,9 +5,9 @@
         <p>Login met je Elision Plan account.</p>
         <form class="login-form" #authForm="ngForm" (ngSubmit)="onSubmit(authForm)">
             <mat-form-field>
-                <mat-label>Email</mat-label>
-                <input matInput placeholder="Ex. dirk.janssens@Elision.com" name="email" id="email" #email="ngModel" ngModel required email>
-                <mat-error *ngIf="email.invalid">Vul een correct email in!</mat-error>
+                <mat-label>Username</mat-label>
+                <input matInput placeholder="Ex. dirk.janssens@Elision.com" name="username" id="username" #username="ngModel" ngModel required>
+                <mat-error *ngIf="username.invalid">Vul een correcte username in!</mat-error>
             </mat-form-field>
             <mat-form-field>
                 <mat-label>Paswoord</mat-label>
