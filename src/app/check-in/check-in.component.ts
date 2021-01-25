@@ -1,5 +1,6 @@
 import { Platform } from '@angular/cdk/platform';
 import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
 import jsQR from 'jsqr';
 
 @Component({
@@ -17,7 +18,7 @@ export class CheckInComponent implements OnInit, AfterViewInit {
   canvasElement: any;
   canvasContext: any;
 
-  constructor(private plt: Platform) {
+  constructor(private plt: Platform, private router: Router) {
     const isInStandaloneMode = () => 'standelone' in window.navigator && window.navigator['standelone'];
     if (this.plt.IOS && isInStandaloneMode()) {
       console.log('I am a an IOS!')
@@ -99,4 +100,7 @@ export class CheckInComponent implements OnInit, AfterViewInit {
     this.scanResult = null;
   }
 
+  toHome() {
+    this.router.navigate(['/home'])
+  }
 }

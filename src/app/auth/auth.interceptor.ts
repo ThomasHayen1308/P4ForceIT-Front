@@ -9,7 +9,7 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
 
-    constructor(private router: Router, private authService: AuthService) { }
+    constructor(private router: Router, private _authService: AuthService) { }
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         let userToken: string = JSON.parse(localStorage.getItem("userToken"));
@@ -23,7 +23,7 @@ export class AuthInterceptor implements HttpInterceptor {
             const currentDateTime = currentDate.getTime();
 
             if(currentDateTime > expirationTime){
-                this.authService.logout();
+                this._authService.logout();
             }
 
             else{
