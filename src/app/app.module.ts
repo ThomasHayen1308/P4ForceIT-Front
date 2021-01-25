@@ -14,6 +14,7 @@ import { AuthModule } from './auth/auth.module';
 import { MeetingsModule } from './meetings/meetings.module';
 import { MyReservationsModule } from './my-reservations/my-reservations.module';
 import { ReservationsModule } from './reservations/reservations.module';
+import { CheckInModule } from './check-in/check-in.module';
 
 import { MatToolbarModule } from '@angular/material/toolbar';
 
@@ -37,8 +38,9 @@ import { ErrorPageComponent } from './error-page/error-page.component';
     AuthModule,
     MeetingsModule,
     MyReservationsModule,
-    MatToolbarModule,
-    ReservationsModule
+    ReservationsModule,
+    CheckInModule,
+    MatToolbarModule
   ],
   providers: [
     // {
