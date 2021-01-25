@@ -2,6 +2,24 @@
     <mat-card>
         <h1>Inchecken</h1>
         <hr>
-        
+        <div class="content">
+            <button mat-raised-button (click)="startScan()" color="accent"><mat-icon>qr_code_scanner</mat-icon> Start scan</button>
+            <button mat-raised-button (click)="reset()" color="warn" *ngIf="scanResult"><mat-icon>replay</mat-icon> Reset</button>
+
+            <video #video [hidden]="!scanActive" width="100%"></video>
+            
+            <canvas #canvas hidden></canvas>
+
+            <button mat-raised-button (click)="stopScan()" color="warn" *ngIf="scanActive"><mat-icon>close</mat-icon> Stop scan</button>
+
+            <mat-card *ngIf="scanResult">
+                <mat-card-header>
+                    <mat-card-title>QR Code</mat-card-title>
+                </mat-card-header>
+                <mat-card-content>
+                    {{ scanResult }}
+                </mat-card-content>
+            </mat-card>
+        </div>
     </mat-card>
 </div>
