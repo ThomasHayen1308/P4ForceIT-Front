@@ -10,18 +10,20 @@ import { UserLogin } from './models/user-login.model';
 
 import { UserService } from '../services/user.service';
 
+import { environment } from 'src/environments/environment';
+
 @Injectable({
     providedIn: 'root'
 })
 export class AuthService {
     user = new BehaviorSubject(null);
-    baseUrl: string = "http://localhost:8080/";
+    baseUrl: string = environment.apiUrl;
 
     constructor(private http: HttpClient, private router: Router, private userService: UserService) { }
 
     login(userLogin: UserLogin) {
-        this.http.post<{ token: string }>(this.baseUrl + "users/login", userLogin).subscribe(userData => {
-            this.authenticationHandler(userData);
+        this.http.post<{ token: string }>(this.baseUrl + "users/login", userLogin).subscribe(token => {
+            this.authenticationHandler(token);
         }, error => {
             // error handling => noty
         });
@@ -29,14 +31,9 @@ export class AuthService {
 
     autoLogin() {
         const userToken: string = JSON.parse(localStorage.getItem('userToken'));
+        //Exception Handler if token is not valid or does not exist
         if (userToken) {
-            //Exception Handler if token is not valid
-            //if userToken exists => decode token and make user object (behaviorSubject)
-            const helper = new JwtHelperService();
-            const decodedToken = helper.decodeToken(userToken);
-            this.userService.getUserById(decodedToken.userId).subscribe((user: User) => {
-                this.user.next(user);
-            });
+            this.getCurrentUser(userToken);
         }
         return null;
     }
@@ -50,16 +47,18 @@ export class AuthService {
     private authenticationHandler(token: { token: string }) {
         let userToken: string = token.token.split(" ")[1];
 
-        const helper = new JwtHelperService();
-        const decodedToken = helper.decodeToken(userToken);
-
-        this.userService.getUserById(decodedToken.userId).subscribe((user: User) => {
-            this.user.next(user);
-        });
-
-        console.log(decodedToken)
+        this.getCurrentUser(userToken);
 
         localStorage.setItem("userToken", JSON.stringify(userToken));
         this.router.navigate(['/home']);
+    }
+
+    // if userToken exists => decode token, find user based on userId from token and make user object (behaviorSubject)
+    private getCurrentUser(userToken: string) {
+        const helper = new JwtHelperService();
+        const decodedToken = helper.decodeToken(userToken);
+        this.userService.getUserById(decodedToken.userId).subscribe((user: User) => {
+            this.user.next(user);
+        });
     }
 }
