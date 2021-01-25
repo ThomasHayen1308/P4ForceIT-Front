@@ -25,7 +25,7 @@ export class AuthComponent implements OnInit {
 
   onSubmit(authForm: NgForm) {
     const value = authForm.value;
-    this.userLogin = new UserLogin(value.email, value.password);
+    this.userLogin = new UserLogin(value.username, value.password);
 
     this.authService.login(this.userLogin);
     authForm.reset();
