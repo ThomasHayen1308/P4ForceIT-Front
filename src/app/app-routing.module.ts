@@ -12,21 +12,22 @@ import { ReserveMeetingRoomComponent } from './reservations/reserve-meeting-room
 import { ErrorPageComponent } from './error-page/error-page.component';
 import { CheckInComponent } from './check-in/check-in.component';
 
+import { AuthGuard } from './auth/guards/auth.guard';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
-  { path: 'home', component: HomeComponent },
-  { path: 'inchecken', component: CheckInComponent },
+  { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
+  { path: 'inchecken', component: CheckInComponent, canActivate: [AuthGuard] },
   {
-    path: 'reserveren', children: [
+    path: 'reserveren', canActivate: [AuthGuard], children: [
       { path: '', component: MenuComponent },
       { path: 'bureau', component: ReserveDeskComponent },
       { path: 'ruimte', component: ReserveMeetingRoomComponent }
     ]
   },
-  { path: 'pauze', component: PauseComponent },
-  { path: 'meetings', component: MeetingsComponent },
-  { path: 'mijn-reservaties', component: MyReservationsComponent },
+  { path: 'pauze', component: PauseComponent, canActivate: [AuthGuard] },
+  { path: 'meetings', component: MeetingsComponent, canActivate: [AuthGuard] },
+  { path: 'mijn-reservaties', component: MyReservationsComponent, canActivate: [AuthGuard] },
 
   { path: 'login', component: AuthComponent },
 
@@ -37,6 +38,7 @@ const routes: Routes = [
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
+  providers: [AuthGuard]
 })
 export class AppRoutingModule { }
