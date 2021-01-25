@@ -10,11 +10,13 @@ import { MenuComponent } from './reservations/menu/menu.component'
 import { ReserveDeskComponent } from './reservations/reserve-desk/reserve-desk.component';
 import { ReserveMeetingRoomComponent } from './reservations/reserve-meeting-room/reserve-meeting-room.component';
 import { ErrorPageComponent } from './error-page/error-page.component';
+import { CheckInComponent } from './check-in/check-in.component';
 
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
+  { path: 'inchecken', component: CheckInComponent },
   {
     path: 'reserveren', children: [
       { path: '', component: MenuComponent },

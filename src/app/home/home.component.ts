@@ -13,6 +13,10 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  toCheckIn() {
+    this.router.navigate(['/inchecken'])
+  }
+
   toReservations(){
     this.router.navigate(['/reserveren'])
   }
