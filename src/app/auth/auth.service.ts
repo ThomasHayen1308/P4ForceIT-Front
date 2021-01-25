@@ -20,8 +20,7 @@ export class AuthService {
     constructor(private http: HttpClient, private router: Router, private userService: UserService) { }
 
     login(userLogin: UserLogin) {
-        console.log(userLogin)
-        this.http.post<User>(this.baseUrl + "users/login", userLogin).subscribe(userData => {
+        this.http.post<{ token: string }>(this.baseUrl + "users/login", userLogin).subscribe(userData => {
             this.authenticationHandler(userData);
         }, error => {
             // error handling => noty
@@ -35,7 +34,7 @@ export class AuthService {
             //if userToken exists => decode token and make user object (behaviorSubject)
             const helper = new JwtHelperService();
             const decodedToken = helper.decodeToken(userToken);
-            this.userService.getUserById(decodedToken.UserID).subscribe((user: User) => { 
+            this.userService.getUserById(decodedToken.userId).subscribe((user: User) => {
                 this.user.next(user);
             });
         }
@@ -48,9 +47,19 @@ export class AuthService {
         this.router.navigate(['/login']);
     }
 
-    private authenticationHandler(currentUser: User) {
-        this.user.next(currentUser);
-        // localStorage.setItem("userToken", JSON.stringify(currentUser.token));
+    private authenticationHandler(token: { token: string }) {
+        let userToken: string = token.token.split(" ")[1];
+
+        const helper = new JwtHelperService();
+        const decodedToken = helper.decodeToken(userToken);
+
+        this.userService.getUserById(decodedToken.userId).subscribe((user: User) => {
+            this.user.next(user);
+        });
+
+        console.log(decodedToken)
+
+        localStorage.setItem("userToken", JSON.stringify(userToken));
         this.router.navigate(['/home']);
     }
 }
