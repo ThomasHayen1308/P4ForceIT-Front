@@ -4,6 +4,8 @@ import { Router } from '@angular/router';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { animate, state, style, transition, trigger } from '@angular/animations';
+import { Inject } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 
 import { Reservation } from '../models/reservation.model';
@@ -11,8 +13,10 @@ import { Reservation } from '../models/reservation.model';
 import { ReservationService } from '../services/reservation.service';
 
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { Inject } from '@angular/core';
-import { Subscription } from 'rxjs';
+
+import { AuthService } from '../auth/auth.service';
+
+import { User } from '../models/user.model';
 
 interface showReservationForUser {
   id: number,
@@ -44,12 +48,16 @@ export class MyReservationsComponent implements OnInit, OnDestroy {
   expandedElement: Reservation | null;
 
   deleteReservationSub: Subscription;
+  userSub: Subscription;
+  reservationSub: Subscription;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   pageLoaded: boolean = true;
 
-  constructor(private router: Router, private reservationService: ReservationService, public dialog: MatDialog) { }
+  currentUser: User;
+
+  constructor(private router: Router, private reservationService: ReservationService, public dialog: MatDialog, private _authService: AuthService) { }
 
   ngOnInit(): void {
     this.pageLoaded = false;
@@ -58,7 +66,11 @@ export class MyReservationsComponent implements OnInit, OnDestroy {
       this.ngOnInit();
     })
 
-    this.reservationService.getReservationsByUserId(1).subscribe((reservations: Reservation[]) => {
+    this.userSub = this._authService.user.subscribe((user: User) => {
+      this.currentUser = user;
+    })
+
+    this.reservationSub = this.reservationService.getReservationsByUserId(this.currentUser.id).subscribe((reservations: Reservation[]) => {
       this.reservationsForUser = reservations;
       reservations.map((reservation) => {
         this.showReservationsForUser.push({
@@ -94,6 +106,8 @@ export class MyReservationsComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.deleteReservationSub.unsubscribe();
+    this.userSub.unsubscribe();
+    this.reservationSub.unsubscribe();
   }
 }
 
