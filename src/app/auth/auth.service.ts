@@ -11,6 +11,7 @@ import { UserLogin } from './models/user-login.model';
 import { UserService } from '../services/user.service';
 
 import { environment } from 'src/environments/environment';
+import { tokenize } from '@angular/compiler/src/ml_parser/lexer';
 
 @Injectable({
     providedIn: 'root'
@@ -30,7 +31,7 @@ export class AuthService {
     }
 
     autoLogin() {
-        const userToken: string = JSON.parse(localStorage.getItem('userToken'));
+        const userToken: string = localStorage.getItem('userToken'); // don't use JSON.parse
         //Exception Handler if token is not valid or does not exist
         if (userToken) {
             this.getCurrentUser(userToken);
@@ -45,11 +46,12 @@ export class AuthService {
     }
 
     private authenticationHandler(token: { token: string }) {
-        let userToken: string = token.token.split(" ")[1];
+        let userToken: string = token.token;
+        userToken = userToken.split(" ")[1];
 
         this.getCurrentUser(userToken);
 
-        localStorage.setItem("userToken", JSON.stringify(userToken));
+        localStorage.setItem("userToken", userToken); // don't use JSON.stringefy => double quotes
         this.router.navigate(['/home']);
     }
 
