@@ -26,7 +26,7 @@ export class ReservationService implements OnDestroy {
     }
 
     getSectionsByCampusId(campusId: number){
-        return this.http.get<Section[]>(this.baseUrl+"reservations/sections/campus/"+campusId);
+        return this.http.get<Section[]>(this.baseUrl+"reservations/campus/"+campusId+"/sections");
     }
 
     getChairsBySectionId(sectionId: number){
