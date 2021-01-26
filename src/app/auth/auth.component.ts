@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Subscription } from 'rxjs';
+import { Router } from '@angular/router';
 
 import { UserLogin } from './models/user-login.model';
 
@@ -11,23 +12,30 @@ import { AuthService } from './auth.service';
   templateUrl: './auth.component.html',
   styleUrls: ['./auth.component.scss', '../styles/page_style.scss']
 })
-export class AuthComponent implements OnInit {
+export class AuthComponent implements OnInit, OnDestroy {
   hide = true;
 
   userLogin: UserLogin;
 
-  userSubscription: Subscription;
+  userSub: Subscription;
 
-  constructor(private authService: AuthService) { }
+  constructor(private router: Router, private _authService: AuthService) { }
 
   ngOnInit(): void {
+    this.userSub = this._authService.user.subscribe(user => {
+      this.router.navigate(['/home'])
+  })
   }
 
   onSubmit(authForm: NgForm) {
     const value = authForm.value;
     this.userLogin = new UserLogin(value.username, value.password);
 
-    this.authService.login(this.userLogin);
-    authForm.reset();
+    this._authService.login(this.userLogin);
+    // authForm.reset();
+  }
+
+  ngOnDestroy() {
+    this.userSub.unsubscribe();
   }
 }

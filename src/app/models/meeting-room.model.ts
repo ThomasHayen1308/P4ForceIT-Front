@@ -4,7 +4,7 @@ export class MeetingRoom {
     constructor(
         public id: number,
         public campus: Campus,
-        public name: String,
+        public name: string,
         public maxPersons: number
     ) { }
 }

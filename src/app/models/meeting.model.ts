@@ -3,11 +3,11 @@ import { MeetingRoom } from './meeting-room.model';
 export class Meeting {
     constructor(
         public id: number,
-        public period: String,
+        public period: string,
         public date: Date,
-        public companyName: String,
+        public companyName: string,
         public numberOfPersons: number,
         public meetingRoom: MeetingRoom,
-        public users?: String
+        public users?: string
     ) { }
 }
