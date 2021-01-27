@@ -1,7 +1,10 @@
 import { Platform } from '@angular/cdk/platform';
 import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import jsQR from 'jsqr';
+import { Subscription } from 'rxjs';
+import { AuthService } from '../auth/auth.service';
+import { User } from '../models/user.model';
 
 @Component({
   selector: 'app-check-in',
@@ -11,6 +14,12 @@ import jsQR from 'jsqr';
 export class CheckInComponent implements OnInit, AfterViewInit {
   scanActive: boolean = false;
   scanResult = null;
+
+  currentUser: User;
+  userSub: Subscription;
+
+  scanSuccessful: boolean = false;
+
   @ViewChild('video', { static: false }) video: ElementRef;
   @ViewChild('canvas', { static: false }) canvas: ElementRef;
 
@@ -18,7 +27,7 @@ export class CheckInComponent implements OnInit, AfterViewInit {
   canvasElement: any;
   canvasContext: any;
 
-  constructor(private plt: Platform, private router: Router) {
+  constructor(private plt: Platform, private router: Router, private route: ActivatedRoute, private _authService: AuthService) {
     const isInStandaloneMode = () => 'standelone' in window.navigator && window.navigator['standelone'];
     if (this.plt.IOS && isInStandaloneMode()) {
       console.log('I am a an IOS!')
@@ -26,6 +35,9 @@ export class CheckInComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
+    this.userSub = this._authService.user.subscribe((user: User) => {
+      this.currentUser = user;
+    })
   }
 
   ngAfterViewInit() {
@@ -78,6 +90,16 @@ export class CheckInComponent implements OnInit, AfterViewInit {
       if (code) {
         this.scanActive = false;
         this.scanResult = code.data;
+
+        let path = this.scanResult.split(";")[0];
+        let key = this.scanResult.split(";")[1];
+
+        if (path === "confirm" && key) {
+          this.scanSuccessful = true
+          this.router.navigate([path, this.currentUser.id], { relativeTo: this.route });
+        } else {
+          this.scanSuccessful = false;
+        }
 
       } else {
         if (this.scanActive) {
