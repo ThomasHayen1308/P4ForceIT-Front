@@ -7,7 +7,6 @@ import { environment } from './../../environments/environment';
 
 import { Reservation } from '../models/reservation.model';
 import { Section } from '../models/section.model';
-import { MeetingRoom } from '../models/meeting-room.model';
 
 @Injectable({
     providedIn: 'root'
@@ -26,21 +25,21 @@ export class ReservationService implements OnDestroy {
     }
 
     getSectionsByCampusId(campusId: number){
-        return this.http.get<Section[]>(this.baseUrl+"reservations/sections/campus/"+campusId);
+        return this.http.get<Section[]>(this.baseUrl+"reservations/campus/"+campusId+"/sections");
     }
 
     getChairsBySectionId(sectionId: number){
         return this.http.get<Chair[]>(this.baseUrl+"reservations/section/"+sectionId+"/chairs");
     }
 
+    postReservation(reservation: Reservation){
+        return this.http.post<Reservation>(this.baseUrl+"reservations", reservation);
+    }
+
     deleteReservation(reservationId: number) {
         this.deleteReservationSub = this.http.delete(this.baseUrl + 'reservations/' + reservationId).subscribe(() => {
             this.reservationDelete.next(reservationId);
         })
-    }
-
-    getMeetingRooms(): Observable<MeetingRoom[]> {
-        return this.http.get<MeetingRoom[]>(this.baseUrl+"meetings/rooms");
     }
 
     ngOnDestroy() {

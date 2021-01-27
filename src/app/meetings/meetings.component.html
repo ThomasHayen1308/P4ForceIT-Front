@@ -35,6 +35,13 @@
                         <td mat-cell *matCellDef="let meeting"> {{meeting.numberOfPersons}} </td>
                     </ng-container>
 
+                    <!-- # start Column -->
+                    <ng-container matColumnDef="start">
+                        <th mat-header-cell *matHeaderCellDef> Tijdstip </th> <!--mat-sort-header-->
+                        <td mat-cell *matCellDef="let meeting"> {{meeting.start}} - {{meeting.end}}</td>
+                    </ng-container>
+
+
                     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 

@@ -8,14 +8,16 @@ import { Meeting } from '../models/meeting.model';
 
 // imports for mat-table
 import { MatPaginator } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { Time } from '@angular/common';
 
 interface ShowMeeting {
   date: Date;
   meetingRoom: String;
   companyName: String;
   numberOfPersons: number;
+  start: Time;
+  end: Time;
 }
 
 @Component({
@@ -24,7 +26,7 @@ interface ShowMeeting {
   styleUrls: ['./meetings.component.scss', '../styles/page_style.scss']
 })
 export class MeetingsComponent implements OnInit {
-  displayedColumns: string[] = ['datum', 'ruimtenaam', 'bedrijfsnaam', 'aantalPersonen'];
+  displayedColumns: string[] = ['datum', 'ruimtenaam', 'bedrijfsnaam', 'aantalPersonen','start'];
 
   pageLoaded: boolean = true;
 
@@ -49,7 +51,9 @@ export class MeetingsComponent implements OnInit {
           date: meeting.date,
           meetingRoom: meeting.meetingRoom.name,
           companyName: meeting.companyName,
-          numberOfPersons: meeting.numberOfPersons
+          numberOfPersons: meeting.numberOfPersons,
+          start: meeting.start,
+          end: meeting.end
         })
       });
       this.dataSource = new MatTableDataSource(this.showMeetings);
