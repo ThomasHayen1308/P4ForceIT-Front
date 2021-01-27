@@ -12,7 +12,7 @@
 
             <button mat-raised-button (click)="stopScan()" color="warn" *ngIf="scanActive"><mat-icon>close</mat-icon> Stop scan</button>
 
-            <mat-card class="card-warning" *ngIf="scanResult && !scanSuccessful">
+            <mat-card class="card-warn" *ngIf="scanResult && !scanSuccessful">
                 <mat-card-header>
                     <mat-card-title>QR Code</mat-card-title>
                 </mat-card-header>
