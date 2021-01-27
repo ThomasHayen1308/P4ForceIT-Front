@@ -17,7 +17,7 @@ import { tokenize } from '@angular/compiler/src/ml_parser/lexer';
     providedIn: 'root'
 })
 export class AuthService {
-    user = new BehaviorSubject(null);
+    user = new BehaviorSubject<User>(null);
     baseUrl: string = environment.apiUrl;
 
     constructor(private http: HttpClient, private router: Router, private userService: UserService) { }
