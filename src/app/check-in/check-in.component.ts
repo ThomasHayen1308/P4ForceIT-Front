@@ -3,7 +3,9 @@ import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angula
 import { ActivatedRoute, Router } from '@angular/router';
 import jsQR from 'jsqr';
 import { Subscription } from 'rxjs';
+
 import { AuthService } from '../auth/auth.service';
+import { KeyService } from '../services/key.service';
 import { User } from '../models/user.model';
 
 @Component({
@@ -27,11 +29,11 @@ export class CheckInComponent implements OnInit, AfterViewInit {
   canvasElement: any;
   canvasContext: any;
 
-  constructor(private plt: Platform, private router: Router, private route: ActivatedRoute, private _authService: AuthService) {
+  constructor(private plt: Platform, private router: Router, private route: ActivatedRoute, private _authService: AuthService, private _keyService: KeyService) {
     const isInStandaloneMode = () => 'standelone' in window.navigator && window.navigator['standelone'];
-    if (this.plt.IOS && isInStandaloneMode()) {
-      console.log('I am a an IOS!')
-    }
+    // if (this.plt.IOS && isInStandaloneMode()) {
+    //   console.log('I am a an IOS!')
+    // }
   }
 
   ngOnInit(): void {
@@ -96,6 +98,7 @@ export class CheckInComponent implements OnInit, AfterViewInit {
 
         if (path === "confirm" && key) {
           this.scanSuccessful = true
+          this._keyService.setConfirmKey(key);
           this.router.navigate([path, this.currentUser.id], { relativeTo: this.route });
         } else {
           this.scanSuccessful = false;
