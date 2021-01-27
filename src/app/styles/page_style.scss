@@ -1,4 +1,4 @@
-// Page & Card style
+// Page
 .page {
     padding: 1rem;
     margin: 0 auto;
@@ -57,7 +57,19 @@ table {
     animation-duration: 1s;
 }
 
-.card-warning {
+// Card styles
+
+.card-primary {
+    background-color: dodgerblue;
+    color: white;
+}
+
+.card-accent {
+    background-color: dodgerblue;
+    color: white;
+}
+
+.card-warn {
     background-color: rgb(216, 94, 94);
     color: white;
 }

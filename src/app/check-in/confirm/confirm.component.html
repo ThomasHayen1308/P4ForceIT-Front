@@ -2,11 +2,27 @@
     <mat-card>
         <h1>Confirm</h1>
         <hr>
-        <p>Duw op onderstaande knop om jezelf aan te melden:</p>
+
+        <p *ngIf="currentUser.present === true">Je bent al aangemeld, veel plezier op het werk!</p>
+
+        <p *ngIf="!currentUser.present === true">Duw op onderstaande knop om jezelf in te checken:</p>
+
+        <mat-card class="card-warn" *ngIf="!currentUser.present === true && checkinError">
+            <mat-card-header>
+                <mat-card-title>Inchecken mislukt</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+                <p>Het inchecken is mislukt, probeer later opnieuw.</p>
+            </mat-card-content>
+        </mat-card>
+
         <div class="page-buttons">
-            <p>
-                <button mat-raised-button color="accent" (click)="onConfirm()"><mat-icon>check</mat-icon> Inchecken</button>
+            <p *ngIf="!currentUser.present === true">
+                <button mat-raised-button color="accent" (click)="onConfirm()">
+                    <mat-icon>check</mat-icon> Inchecken
+                </button>
             </p>
         </div>
+
     </mat-card>
 </div>

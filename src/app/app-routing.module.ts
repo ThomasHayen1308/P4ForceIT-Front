@@ -19,7 +19,7 @@ const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
   {
-    path: 'inchecken', canActivate: [], children:
+    path: 'inchecken', canActivate: [AuthGuard], children:
       [
         { path: '', component: CheckInComponent },
         { path: 'confirm/:id', component: ConfirmComponent }
