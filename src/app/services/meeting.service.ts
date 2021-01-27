@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Subject } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 
 import { environment } from './../../environments/environment';
 
 import { Meeting } from '../models/meeting.model';
+import { MeetingRoom } from '../models/meeting-room.model';
 
 @Injectable({
     providedIn: 'root'
@@ -22,6 +23,14 @@ export class MeetingService {
             this.meetings = meetings;
             this.meetingsUpdated.next([...this.meetings]);
         });
+    }
+
+    getMeetingRooms(): Observable<MeetingRoom[]> {
+        return this.http.get<MeetingRoom[]>(this.baseUrl+"meetings/rooms");
+    }
+
+    postMeeting(newMeeting: Meeting){
+        return this.http.post<Meeting>(this.baseUrl+"meetings", newMeeting);
     }
 
     getMeetingsUpdateListener() {

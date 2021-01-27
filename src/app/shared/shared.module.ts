@@ -8,6 +8,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 import {FormsModule} from '@angular/forms';
 
 import { ShortenPipe } from './shorten.pipe';
@@ -25,7 +26,8 @@ import { ShortenPipe } from './shorten.pipe';
     MatFormFieldModule,
     MatInputModule,
     FormsModule,
-    MatSelectModule
+    MatSelectModule,
+    MatSnackBarModule
   ],
   exports: [
     MatButtonModule,
@@ -36,6 +38,7 @@ import { ShortenPipe } from './shorten.pipe';
     MatInputModule,
     MatSelectModule,
     FormsModule,
+    MatSnackBarModule,
     ShortenPipe
   ]
 })

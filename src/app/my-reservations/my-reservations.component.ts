@@ -17,10 +17,12 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { AuthService } from '../auth/auth.service';
 
 import { User } from '../models/user.model';
+import { Time } from '@angular/common';
 
 interface showReservationForUser {
   id: number,
-  periode: String,
+  start: Time,
+  end: Time,
   date: Date,
   chair: String,
   campus: String,
@@ -44,7 +46,7 @@ export class MyReservationsComponent implements OnInit, OnDestroy {
   showReservationsForUser: showReservationForUser[] = [];
 
   dataSource = new MatTableDataSource<showReservationForUser>(this.showReservationsForUser);
-  columnsToDisplay = ['Datum', 'Campus', 'Sectie', 'Stoel'];
+  columnsToDisplay = ['Datum', 'Campus', 'Sectie', 'Stoel', 'Tijdstip'];
   expandedElement: Reservation | null;
 
   deleteReservationSub: Subscription;
@@ -75,7 +77,8 @@ export class MyReservationsComponent implements OnInit, OnDestroy {
       reservations.map((reservation) => {
         this.showReservationsForUser.push({
           id: reservation.id,
-          periode: reservation.period,
+          start: reservation.start,
+          end: reservation.end,
           date: reservation.date,
           chair: reservation.chair.name,
           campus: reservation.chair.section.campus.name,

@@ -16,7 +16,7 @@
                     <mat-form-field>
                         <mat-label>Vergaderruimte</mat-label>
                         <mat-select placeholder="Selecteer vergaderruimte" required name="roomname" [(ngModel)]="newMeeting.meetingRoom" >
-                            <mat-option *ngFor="let meetingRoom of filteredMeetingRooms" [value]="meetingRoom.id">
+                            <mat-option *ngFor="let meetingRoom of filteredMeetingRooms" [value]="meetingRoom">
                                 {{meetingRoom.name}} | {{meetingRoom.campus.name}}
                             </mat-option>
                         </mat-select>
@@ -34,16 +34,21 @@
                         <mat-input>
                             <input matInput type="date" [(ngModel)]="newMeeting.date" required name="date">
                         </mat-input>
+                        
                     </mat-form-field>
                     <br>
                     <mat-form-field>
-                        <mat-label>Periode</mat-label>
-                        <mat-select placeholder="Selecteer periode" [(ngModel)]="newMeeting.period" required name="periode">
-                            <mat-option [value]="1">Voormiddag</mat-option>
-                            <mat-option [value]="2">Namiddag</mat-option>
-                            <mat-option [value]="3">Hele dag</mat-option>
-                            <mat-option [value]="4">Hele week</mat-option>
-                        </mat-select>
+                        <mat-label>Begin</mat-label>
+                        <mat-input>
+                            <input type="time" matInput [(ngModel)]="newMeeting.start" required name="start">
+                        </mat-input>
+                    </mat-form-field>
+                    <br>
+                    <mat-form-field>
+                        <mat-label>Einde</mat-label>
+                        <mat-input>
+                            <input type="time" matInput [(ngModel)]="newMeeting.end" required name="end">
+                        </mat-input>
                     </mat-form-field>
                     <br>
                     <button mat-raised-button type="submit" color="primary" [disabled]="!reservationForm.form.valid || submitted">Indienen</button>

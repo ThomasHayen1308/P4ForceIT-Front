@@ -1,9 +1,14 @@
+import { error } from '@angular/compiler/src/util';
 import { Component, OnInit } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+import { JwtHelperService } from '@auth0/angular-jwt';
 import { Chair } from 'src/app/models/chair.model';
 import { Reservation } from 'src/app/models/reservation.model';
 import { Section } from 'src/app/models/section.model';
+import { User } from 'src/app/models/user.model';
 import { ReservationService } from 'src/app/services/reservation.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-reserve-desk',
@@ -18,7 +23,7 @@ export class ReserveDeskComponent implements OnInit {
 
   showDetails: boolean = false;
 
-  newReservation: Reservation = new Reservation(0, "", null, null, null);
+  newReservation: Reservation = new Reservation(0, null, null, null, null, null);
 
   campusId: number = 6;
 
@@ -28,7 +33,13 @@ export class ReserveDeskComponent implements OnInit {
 
   submitted: boolean = false;
 
-  constructor(private router: Router, private _reservationService: ReservationService) { }
+  currentUser: User;
+
+  constructor(private router: Router, private _reservationService: ReservationService, private _userService: UserService, public snackbar: MatSnackBar) {
+    const decodedToken = new JwtHelperService().decodeToken(localStorage.getItem("userToken"));
+    this._userService.getUserById(decodedToken.userId).subscribe((user)=>{this.currentUser = user;});
+    
+   }
 
   ngOnInit(): void {
   }
@@ -54,7 +65,30 @@ export class ReserveDeskComponent implements OnInit {
 
   onSubmit(){
     this.submitted = true;
+    this.pageLoaded = false;
+    this.newReservation.user = this.currentUser;
     console.log(this.newReservation);
+    this._reservationService.postReservation(this.newReservation).subscribe(()=>{
+      this.snackbar.open("Reservatie geslaagd!", "Sluiten",
+      {
+        duration: 3000,
+        verticalPosition: 'top',
+        horizontalPosition: 'center',
+        panelClass: "primary"
+      });
+      this.router.navigate(['/home'])
+    }, error=>{
+      this.submitted = false;
+      this.pageLoaded = true;
+      console.log(error);
+      this.snackbar.open("Er ging iets fout, probeer opnieuw", "Sluiten",
+      {
+        duration: 3000,
+        verticalPosition: 'top',
+        horizontalPosition: 'center',
+        panelClass: "primary"
+      })
+    });
   }
 
   sectionChange(e){

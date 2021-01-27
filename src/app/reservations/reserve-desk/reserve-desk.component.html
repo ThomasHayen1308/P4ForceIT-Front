@@ -39,16 +39,21 @@
                         <mat-input>
                             <input matInput type="date" [(ngModel)]="newReservation.date" required name="date">
                         </mat-input>
+                        
                     </mat-form-field>
                     <br>
                     <mat-form-field>
-                        <mat-label>Periode</mat-label>
-                        <mat-select placeholder="Selecteer periode" [(ngModel)]="newReservation.period" required name="periode">
-                            <mat-option [value]="1">Voormiddag</mat-option>
-                            <mat-option [value]="2">Namiddag</mat-option>
-                            <mat-option [value]="3">Hele dag</mat-option>
-                            <mat-option [value]="4">Hele week</mat-option>
-                        </mat-select>
+                        <mat-label>Begin</mat-label>
+                        <mat-input>
+                            <input type="time" matInput [(ngModel)]="newReservation.start" required name="start">
+                        </mat-input>
+                    </mat-form-field>
+                    <br>
+                    <mat-form-field>
+                        <mat-label>Einde</mat-label>
+                        <mat-input>
+                            <input type="time" matInput [(ngModel)]="newReservation.end" required name="end">
+                        </mat-input>
                     </mat-form-field>
                     <br>
                     <button mat-raised-button type="submit" color="primary" [disabled]="!reservationForm.form.valid || submitted">Indienen</button>
