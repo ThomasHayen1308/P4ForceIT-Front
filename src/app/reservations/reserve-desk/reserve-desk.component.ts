@@ -64,7 +64,6 @@ export class ReserveDeskComponent implements OnInit {
   }
 
   onSubmit(){
-    if(this.newReservation.start < this.newReservation.end){
     this.submitted = true;
     this.pageLoaded = false;
     this.newReservation.user = this.currentUser;
@@ -102,16 +101,6 @@ export class ReserveDeskComponent implements OnInit {
         horizontalPosition: 'center'
       })
     });
-  }
-  else{
-    this.snackbar.open("Het startuur is later dan het einduur.", "Sluiten",
-      {
-        duration: 3000,
-        verticalPosition: 'top',
-        horizontalPosition: 'center'
-      })
-
-  }
   }
 
   sectionChange(e){

@@ -54,8 +54,6 @@ export class ReserveMeetingRoomComponent implements OnInit {
   }
 
   onSubmit(){
-    if(this.newMeeting.start.hours < this.newMeeting.end.hours){
-
     this.submitted = true;
     this.pageLoaded = false;
     this.newMeeting.users = new Array<User>();
@@ -88,16 +86,6 @@ export class ReserveMeetingRoomComponent implements OnInit {
         horizontalPosition:'center'
       })
     });
-  }
-  else{
-    this.snackBar.open("Het startuur is later dan het einduur.","Sluiten", {
-      duration: 4000,
-      verticalPosition: 'top',
-      horizontalPosition:'center'
-    })
-
-  }
-
   }
 
   numberOfPersonsChangeEvent(e){

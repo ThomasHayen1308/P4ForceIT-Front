@@ -19,4 +19,8 @@ export class KitchenService {
     return this.http.get<Kitchen[]>(this.BaseURL + 'kitchens');
   }
 
+  resetKitchens(): Observable<Kitchen[]>{
+    return this.http.get<Kitchen[]>(this.BaseURL+"kitchens/reset");
+  }
+
 }
