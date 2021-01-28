@@ -9,46 +9,51 @@
                     <mat-form-field>
                         <mat-label>Aantal personen</mat-label>
                         <mat-input>
-                            <input matInput type="number" min="2" required name="numberOfPersons" [(ngModel)]="newMeeting.numberOfPersons" (change)="numberOfPersonsChangeEvent($event)" >
+                            <input matInput type="number" min="2" required name="numberOfPersons" [(ngModel)]="newMeeting.numberOfPersons" (change)="numberOfPersonsChangeEvent($event)" #numberOfPersons="ngModel">
                         </mat-input>
+                        <mat-error *ngIf="numberOfPersons.invalid">Je moet een aantal personen opgeven</mat-error>
                     </mat-form-field>
                     <br>
                     <mat-form-field>
                         <mat-label>Vergaderruimte</mat-label>
-                        <mat-select placeholder="Selecteer vergaderruimte" required name="roomname" [(ngModel)]="newMeeting.meetingRoom" >
+                        <mat-select placeholder="Selecteer vergaderruimte" required name="roomname" [(ngModel)]="newMeeting.meetingRoom" #meetingRoom="ngModel">
                             <mat-option *ngFor="let meetingRoom of filteredMeetingRooms" [value]="meetingRoom">
                                 {{meetingRoom.name}} | {{meetingRoom.campus.name}}
                             </mat-option>
                         </mat-select>
+                        <mat-error *ngIf="meetingRoom.invalid">Je moet een vergaderruimte kiezen</mat-error>
                     </mat-form-field>
                     <br>
                     <mat-form-field>
                         <mat-label>Bedrijfsnaam</mat-label>
                         <mat-input>
-                            <input matInput type="text" placeholder="Bedrijfsnaam" required name="companyName" [(ngModel)]="newMeeting.companyName">
+                            <input matInput type="text" placeholder="Bedrijfsnaam" required name="companyName" [(ngModel)]="newMeeting.companyName" #companyName="ngModel">
                         </mat-input>
+                        <mat-error *ngIf="companyName.invalid">Je moet een bedrijfsnaam opgeven</mat-error>
                     </mat-form-field>
                     <br>
                     <mat-form-field>
                         <mat-label>Datum</mat-label>
                         <mat-input>
-                            <input matInput type="date" [(ngModel)]="newMeeting.date" required name="date">
+                            <input matInput type="date" [(ngModel)]="newMeeting.date" required name="date" #date="ngModel">
                         </mat-input>
-                        
+                        <mat-error *ngIf="date.invalid">Je moet een datum kiezen</mat-error>
                     </mat-form-field>
                     <br>
                     <mat-form-field>
                         <mat-label>Begin</mat-label>
                         <mat-input>
-                            <input type="time" matInput [(ngModel)]="newMeeting.start" required name="start">
+                            <input type="time" matInput [(ngModel)]="newMeeting.start" required name="start" #start="ngModel">
                         </mat-input>
+                        <mat-error *ngIf="start.invalid">Je moet een begin tijd kiezen</mat-error>
                     </mat-form-field>
                     <br>
                     <mat-form-field>
                         <mat-label>Einde</mat-label>
                         <mat-input>
-                            <input type="time" matInput [(ngModel)]="newMeeting.end" required name="end">
+                            <input type="time" matInput [(ngModel)]="newMeeting.end" required name="end" #end="ngModel">
                         </mat-input>
+                        <mat-error *ngIf="end.invalid">Je moet een eind tijd kiezen</mat-error>
                     </mat-form-field>
                     <br>
                     <button mat-raised-button type="submit" color="primary" [disabled]="!reservationForm.form.valid || submitted">Indienen</button>

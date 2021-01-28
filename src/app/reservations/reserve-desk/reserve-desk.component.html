@@ -41,23 +41,25 @@
                         <mat-form-field>
                             <mat-label>Datum</mat-label>
                             <mat-input>
-                                <input matInput type="date" [(ngModel)]="newReservation.date" required name="date">
+                                <input matInput type="date" [(ngModel)]="newReservation.date" required name="date" #datum="ngModel">
                             </mat-input>
-
+                            <mat-error *ngIf="datum.invalid">Je moet een datum kiezen</mat-error>
                         </mat-form-field>
                         <br>
                         <mat-form-field>
                             <mat-label>Begin</mat-label>
                             <mat-input>
-                                <input type="time" matInput [(ngModel)]="newReservation.start" required name="start">
+                                <input type="time" matInput [(ngModel)]="newReservation.start" required name="start" #begin="ngModel">
                             </mat-input>
+                            <mat-error *ngIf="begin.invalid">Je moet een begin tijd kiezen</mat-error>
                         </mat-form-field>
                         <br>
                         <mat-form-field>
                             <mat-label>Einde</mat-label>
                             <mat-input>
-                                <input type="time" matInput [(ngModel)]="newReservation.end" required name="end">
+                                <input type="time" matInput [(ngModel)]="newReservation.end" required name="end" #eind="ngModel">
                             </mat-input>
+                            <mat-error *ngIf="eind.invalid">Je moet een eind tijd kiezen</mat-error>
                         </mat-form-field>
                         <br>
                         <button mat-raised-button type="submit" color="primary"
