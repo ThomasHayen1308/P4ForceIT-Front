@@ -1,5 +1,5 @@
 import { Platform } from '@angular/cdk/platform';
-import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import jsQR from 'jsqr';
 import { Subscription } from 'rxjs';
@@ -13,7 +13,7 @@ import { User } from '../models/user.model';
   templateUrl: './check-in.component.html',
   styleUrls: ['./check-in.component.scss', '../styles/page_style.scss']
 })
-export class CheckInComponent implements OnInit, AfterViewInit {
+export class CheckInComponent implements OnInit, AfterViewInit, OnDestroy {
   scanActive: boolean = false;
   scanResult = null;
 
@@ -135,5 +135,9 @@ export class CheckInComponent implements OnInit, AfterViewInit {
 
   toHome() {
     this.router.navigate(['/home'])
+  }
+
+  ngOnDestroy() {
+    this.stopScan();
   }
 }
