@@ -13,6 +13,7 @@ export class HomeComponent implements OnInit {
 
   currentUser: User;
 
+  pageLoaded: boolean = false;
   adminUser: boolean = false;
 
   constructor(private router: Router, private _userService: UserService) {
@@ -22,6 +23,7 @@ export class HomeComponent implements OnInit {
       if(this.currentUser.role.name == "admin"){
         this.adminUser = true;
       }
+      this.pageLoaded = true;
     })
    }
 
