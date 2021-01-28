@@ -16,7 +16,7 @@ export class ReservationService implements OnDestroy {
 
     deleteReservationSub: Subscription;
 
-    reservationDelete = new Subject<number>();
+    reservationsChanged = new Subject<number>();
 
     constructor(private http: HttpClient) { }
 
@@ -36,9 +36,15 @@ export class ReservationService implements OnDestroy {
         return this.http.post<Reservation>(this.baseUrl+"reservations", reservation);
     }
 
+    updateReservation(reservation: Reservation) {
+        this.http.put<Reservation>(this.baseUrl + "reservations/" + reservation.id, reservation).subscribe(() => {
+            this.reservationsChanged.next(reservation.id);
+        })
+    }
+
     deleteReservation(reservationId: number) {
         this.deleteReservationSub = this.http.delete(this.baseUrl + 'reservations/' + reservationId).subscribe(() => {
-            this.reservationDelete.next(reservationId);
+            this.reservationsChanged.next(reservationId);
         })
     }
 

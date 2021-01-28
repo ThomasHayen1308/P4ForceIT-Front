@@ -63,7 +63,7 @@ export class MyReservationsComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.pageLoaded = false;
-    this.deleteReservationSub = this.reservationService.reservationDelete.subscribe(() => {
+    this.deleteReservationSub = this.reservationService.reservationsChanged.subscribe(() => {
       this.showReservationsForUser = [];
       this.ngOnInit();
     })

@@ -4,8 +4,10 @@ import { Subscription } from 'rxjs';
 
 import { AuthService } from 'src/app/auth/auth.service';
 import { Key } from 'src/app/models/key.model';
+import { Reservation } from 'src/app/models/reservation.model';
 import { User } from 'src/app/models/user.model';
 import { KeyService } from 'src/app/services/key.service';
+import { ReservationService } from 'src/app/services/reservation.service';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -17,12 +19,18 @@ export class ConfirmComponent implements OnInit, OnDestroy {
   idUser: number;
   idCurrentUser: number;
   currentUser: User;
+  currentUserReservations: Reservation[];
+  currentUserReservationsToday: Reservation[] = [];
+
+  alreadyConfirmed: boolean = null;
+  reservationsToday: boolean = false;
 
   realKey: string;
   confirmKey: string;
 
   userSub: Subscription;
   keySub: Subscription;
+  reservationSub: Subscription;
 
   checkinError: boolean = false;
 
@@ -31,7 +39,8 @@ export class ConfirmComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private _authService: AuthService,
     private _keyService: KeyService,
-    private _userService: UserService
+    private _userService: UserService,
+    private _reservationService: ReservationService
   ) { }
 
   ngOnInit(): void {
@@ -44,6 +53,27 @@ export class ConfirmComponent implements OnInit, OnDestroy {
           this.router.navigate(['/']);
         }
       }
+
+      // check if user has reservations ...
+      this.reservationSub = this._reservationService.getReservationsByUserId(user.id).subscribe((reservations: Reservation[]) => {
+        this.currentUserReservations = reservations;
+
+        // check if one of the reservations is today ...
+        reservations.map(reservation => {
+          // check if reservation is today, if true, add to array
+          if (this.isToday(reservation.date)) {
+            this.reservationsToday = true;
+            this.currentUserReservationsToday.push(reservation);
+            if (reservation.present && this.alreadyConfirmed != false) {
+              this.alreadyConfirmed = true;
+            } else {
+              this.alreadyConfirmed = false;
+            }
+          }
+        })
+
+      })
+
     })
 
     this.route.params.subscribe(
@@ -63,18 +93,32 @@ export class ConfirmComponent implements OnInit, OnDestroy {
   onConfirm() {
     // check if current key is the same as real key from database
     if (this.confirmKey === this.realKey) {
-      let updatedUser = this.currentUser;
-      updatedUser.present = true;
-      this._userService.updateUser(updatedUser).subscribe((user: User) => {
-        this._authService.user.next(user);
-      }, error => {
-        updatedUser.present = false; // turn user in angular back to not present
-        this._authService.user.next(updatedUser);
-        this.checkinError = true;
-        console.log('User kan niet worden geupdate');
-      });
-     
+      console.log('keys oké')
+      // if reservation found ...
+      // Set present of the reservation of the user true ...
+      if (this.currentUserReservationsToday.length > 0) {
+        let i;
+        for (i = 0; i < this.currentUserReservations.length; i++) {
+          let updateReservation: Reservation = this.currentUserReservations[i];
+          updateReservation.present = true;
+          this._reservationService.updateReservation(updateReservation)
+        }
+        this.alreadyConfirmed = true;
+      }
     }
+  }
+
+  // function to check if reservation is today
+  isToday = (someDate: Date) => {
+    const today = new Date()
+    const reservationDate = new Date(someDate)
+    return reservationDate.getDate() == today.getDate() &&
+      reservationDate.getMonth() == today.getMonth() &&
+      reservationDate.getFullYear() == today.getFullYear()
+  }
+
+  toHome() {
+    this.router.navigate(['/']);
   }
 
   ngOnDestroy() {
