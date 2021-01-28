@@ -93,6 +93,8 @@ export class CheckInComponent implements OnInit, AfterViewInit {
         this.scanActive = false;
         this.scanResult = code.data;
 
+        this.stopVideo();
+
         let path = this.scanResult.split(";")[0];
         let key = this.scanResult.split(";")[1];
 
@@ -118,11 +120,17 @@ export class CheckInComponent implements OnInit, AfterViewInit {
   // helper functions
   stopScan() {
     console.log('stopped scan')
+    this.stopVideo();
     this.scanActive = false;
   }
 
   reset() {
     this.scanResult = null;
+  }
+
+  stopVideo() {
+    const stopvideo = this.videoElement.srcObject.getTracks();
+    stopvideo[0].stop();
   }
 
   toHome() {
