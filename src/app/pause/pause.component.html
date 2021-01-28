@@ -21,6 +21,7 @@
                 </div>
             </mat-card>
             <br>
+            
             </div> 
         </div>
         <div *ngIf="!pageLoaded">
@@ -28,6 +29,9 @@
         </div>
                
         <div class="page-buttons">
+            <p *ngIf="currentUserRole">
+                <button mat-raised-button color="warn" (click)="resetKitchens()">Reset Keukens</button>
+            </p>
             <p>
                 <button mat-raised-button color="primary" (click)="toHome()"><mat-icon>home</mat-icon> Hoofdmenu</button>
             </p>

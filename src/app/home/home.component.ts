@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { JwtHelperService } from '@auth0/angular-jwt';
+import { User } from '../models/user.model';
+import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'app-home',
@@ -8,7 +11,19 @@ import { Router } from '@angular/router';
 })
 export class HomeComponent implements OnInit {
 
-  constructor(private router: Router) { }
+  currentUser: User;
+
+  adminUser: boolean = false;
+
+  constructor(private router: Router, private _userService: UserService) {
+    const decodedToken = new JwtHelperService().decodeToken(localStorage.getItem("userToken"));
+    this._userService.getUserById(decodedToken.userId).subscribe(user=>{
+      this.currentUser = user;
+      if(this.currentUser.role.name == "admin"){
+        this.adminUser = true;
+      }
+    })
+   }
 
   ngOnInit(): void {
   }

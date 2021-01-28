@@ -1,6 +1,8 @@
 <div class="page fade-in">
+    
     <mat-card>
-        <h1>Hoofdmenu</h1>
+        <h1>Welkom {{currentUser.name}}!</h1>
+        <h2>Hoofdmenu</h2>
         <hr>
         <div class="page-buttons">
             <p>
@@ -18,6 +20,20 @@
             <p>
                 <button mat-raised-button color="accent" (click)="toMeetings()">Meetings bekijken</button>
             </p>
+        </div>
+    </mat-card>
+    <br>
+    <mat-card *ngIf="adminUser">
+        <h2>Beheer</h2>
+        <hr>
+        <div class="page-buttons">
+            <p>
+                <button mat-raised-button color="warn">Tracking</button>
+            </p>
+            <p>
+                <button mat-raised-button color="warn">Gegevens</button>
+            </p>
+
         </div>
     </mat-card>
 </div>
