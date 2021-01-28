@@ -1,72 +1,77 @@
 <div class="page fade-in">
     <mat-card>
         <div>
-        <h1>Bureau reserveren</h1>
-        <hr>
-        <div *ngIf="pageLoaded" class="page-buttons">
-            <div id="mapsDiv">
+            <h1>Bureau reserveren</h1>
+            <hr>
+            <div *ngIf="pageLoaded" class="page-buttons">
+                <div id="mapsDiv">
+                    <p>
+                        <img [src]="planImgPath" alt="floorplan" class="corda-img">
+
+                    </p>
+                    <p>
+                        <button mat-raised-button (click)="setCampus(6)" color="accent">Corda 1</button>
+                        <button mat-raised-button (click)="setCampus(7)" color="accent">Corda 2</button>
+                    </p>
+                </div>
+                <div *ngIf="showDetails" class="fade-in">
+                    <form #reservationForm="ngForm" (ngSubmit)="onSubmit()">
+                        <mat-form-field>
+                            <mat-label>Sectie</mat-label>
+                            <mat-select placeholder="Selecteer sectie" (selectionChange)="sectionChange($event)" ngModel
+                                required name="section" #section="ngModel">
+                                <mat-option *ngFor="let section of sections" [value]="section.id">
+                                    {{section.name}}
+                                </mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="section.invalid">Je moet een sectie kiezen</mat-error>
+                        </mat-form-field>
+                        <br>
+                        <mat-form-field>
+                            <mat-label>Stoel</mat-label>
+                            <mat-select placeholder="Selecteer stoel" [(ngModel)]="newReservation.chair" required
+                                name="chair" #stoel="ngModel">
+                                <mat-option *ngFor="let chair of chairs" [value]="chair">
+                                    {{chair.name}}
+                                </mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="stoel.invalid">Je moet een stoel kiezen</mat-error>
+                        </mat-form-field>
+                        <br>
+                        <mat-form-field>
+                            <mat-label>Datum</mat-label>
+                            <mat-input>
+                                <input matInput type="date" [(ngModel)]="newReservation.date" required name="date">
+                            </mat-input>
+
+                        </mat-form-field>
+                        <br>
+                        <mat-form-field>
+                            <mat-label>Begin</mat-label>
+                            <mat-input>
+                                <input type="time" matInput [(ngModel)]="newReservation.start" required name="start">
+                            </mat-input>
+                        </mat-form-field>
+                        <br>
+                        <mat-form-field>
+                            <mat-label>Einde</mat-label>
+                            <mat-input>
+                                <input type="time" matInput [(ngModel)]="newReservation.end" required name="end">
+                            </mat-input>
+                        </mat-form-field>
+                        <br>
+                        <button mat-raised-button type="submit" color="primary"
+                            [disabled]="!reservationForm.form.valid || submitted">Indienen</button>
+                    </form>
+                </div>
+                <div *ngIf="!pageLoaded">
+                    <mat-progress-spinner style="margin: auto;" mode="indeterminate" color="primary">
+                    </mat-progress-spinner>
+                </div>
                 <p>
-                    <img [src]="planImgPath" alt="floorplan" class="corda-img">
-                
-                </p>
-                <p>
-                    <button mat-raised-button (click)="setCampus(6)" color="accent">Corda 1</button>
-                    <button mat-raised-button (click)="setCampus(7)" color="accent">Corda 2</button>
+                    <button mat-raised-button (click)="back()" color="warn">Terug</button>
                 </p>
             </div>
-            <div *ngIf="showDetails" class="fade-in">
-                <form #reservationForm="ngForm" (ngSubmit)="onSubmit()">
-                    <mat-form-field>
-                        <mat-label>Sectie</mat-label>
-                        <mat-select placeholder="Selecteer sectie" (selectionChange)="sectionChange($event)" required name="section">
-                            <mat-option *ngFor="let section of sections" [value]="section.id">
-                                {{section.name}}
-                            </mat-option>
-                        </mat-select>
-                    </mat-form-field>
-                    <br>
-                    <mat-form-field>
-                        <mat-label>Stoel</mat-label>
-                        <mat-select placeholder="Selecteer stoel" [(ngModel)]="newReservation.chair" required name="chair">
-                            <mat-option *ngFor="let chair of chairs" [value]="chair">
-                                {{chair.name}}
-                            </mat-option>
-                        </mat-select>
-                    </mat-form-field>
-                    <br>
-                    <mat-form-field>
-                        <mat-label>Datum</mat-label>
-                        <mat-input>
-                            <input matInput type="date" [(ngModel)]="newReservation.date" required name="date">
-                        </mat-input>
-                        
-                    </mat-form-field>
-                    <br>
-                    <mat-form-field>
-                        <mat-label>Begin</mat-label>
-                        <mat-input>
-                            <input type="time" matInput [(ngModel)]="newReservation.start" required name="start">
-                        </mat-input>
-                    </mat-form-field>
-                    <br>
-                    <mat-form-field>
-                        <mat-label>Einde</mat-label>
-                        <mat-input>
-                            <input type="time" matInput [(ngModel)]="newReservation.end" required name="end">
-                        </mat-input>
-                    </mat-form-field>
-                    <br>
-                    <button mat-raised-button type="submit" color="primary" [disabled]="!reservationForm.form.valid || submitted">Indienen</button>
-                </form>
-            </div>
-            <div *ngIf="!pageLoaded">
-                <mat-progress-spinner style="margin: auto;" mode="indeterminate" color="primary"></mat-progress-spinner>
-            </div>
-            <p>
-                <button mat-raised-button (click)="back()" color="warn">Terug</button>
-            </p>
         </div>
-    </div>
     </mat-card>
 </div>
-
