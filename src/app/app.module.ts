@@ -5,7 +5,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HeaderComponent } from './header/header.component';
+import { DialogLogout, HeaderComponent } from './header/header.component';
 
 import { SharedModule } from './shared/shared.module';
 import { HomeModule } from './home/home.module';
@@ -17,6 +17,7 @@ import { ReservationsModule } from './reservations/reservations.module';
 import { CheckInModule } from './check-in/check-in.module';
 
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatDialogModule } from '@angular/material/dialog';
 
 import { AuthInterceptor } from './auth/auth.interceptor';
 import { ErrorPageComponent } from './error-page/error-page.component';
@@ -25,7 +26,8 @@ import { ErrorPageComponent } from './error-page/error-page.component';
   declarations: [
     AppComponent,
     HeaderComponent,
-    ErrorPageComponent
+    ErrorPageComponent,
+    DialogLogout
   ],
   imports: [
     BrowserModule,
@@ -40,7 +42,8 @@ import { ErrorPageComponent } from './error-page/error-page.component';
     MyReservationsModule,
     ReservationsModule,
     CheckInModule,
-    MatToolbarModule
+    MatToolbarModule,
+    MatDialogModule
   ],
   providers: [
     {
