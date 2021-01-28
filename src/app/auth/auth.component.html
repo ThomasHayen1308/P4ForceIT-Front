@@ -1,5 +1,6 @@
 <div class="page">
     <mat-card>
+        <img class="logoborder" src="/assets/favicon-150x150.png" alt="elision logo">
         <h1>Login</h1>
         <hr>
         <p>Login met je Elision Plan account.</p>
@@ -18,7 +19,7 @@
                     <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
                 </button>
             </mat-form-field>
-            <button mat-stroked-button color="accent" type="submit" [disabled]="!authForm.valid">Login</button>
+            <button mat-stroked-button color="primary" type="submit" [disabled]="!authForm.valid">Login</button>
         </form>
     </mat-card>
 </div>

@@ -64,31 +64,54 @@ export class ReserveDeskComponent implements OnInit {
   }
 
   onSubmit(){
+    if(this.newReservation.start < this.newReservation.end){
     this.submitted = true;
     this.pageLoaded = false;
     this.newReservation.user = this.currentUser;
     console.log(this.newReservation);
-    this._reservationService.postReservation(this.newReservation).subscribe(()=>{
-      this.snackbar.open("Reservatie geslaagd!", "Sluiten",
+    this._reservationService.postReservation(this.newReservation).subscribe(message=>{
+      console.log(message);
+      if(message == null){
+        this.snackbar.open("Er is al een reservatie op dat moment.", "Sluiten",
       {
         duration: 3000,
         verticalPosition: 'top',
-        horizontalPosition: 'center',
-        panelClass: "primary"
+        horizontalPosition: 'center'
+      });
+      this.submitted = false;
+      this.pageLoaded = true;
+      }
+      else{
+        this.snackbar.open("Reservatie geslaagd!", "Sluiten",
+      {
+        duration: 3000,
+        verticalPosition: 'top',
+        horizontalPosition: 'center'
       });
       this.router.navigate(['/home'])
+      }
+      
     }, error=>{
       this.submitted = false;
       this.pageLoaded = true;
       console.log(error);
-      this.snackbar.open("Er ging iets fout, probeer opnieuw", "Sluiten",
+      this.snackbar.open("Er ging iets mis...", "Sluiten",
       {
         duration: 3000,
         verticalPosition: 'top',
-        horizontalPosition: 'center',
-        panelClass: "primary"
+        horizontalPosition: 'center'
       })
     });
+  }
+  else{
+    this.snackbar.open("Het startuur is later dan het einduur.", "Sluiten",
+      {
+        duration: 3000,
+        verticalPosition: 'top',
+        horizontalPosition: 'center'
+      })
+
+  }
   }
 
   sectionChange(e){

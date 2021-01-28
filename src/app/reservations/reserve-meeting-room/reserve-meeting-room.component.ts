@@ -1,4 +1,4 @@
-import { error } from '@angular/compiler/src/util';
+import { Time } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
@@ -7,7 +7,6 @@ import { MeetingRoom } from 'src/app/models/meeting-room.model';
 import { Meeting } from 'src/app/models/meeting.model';
 import { User } from 'src/app/models/user.model';
 import { MeetingService } from 'src/app/services/meeting.service';
-import { ReservationService } from 'src/app/services/reservation.service';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -33,6 +32,8 @@ export class ReserveMeetingRoomComponent implements OnInit {
 
   currentUser: User;
 
+  now: Time;
+
 
   constructor(private router: Router, private _meetingService: MeetingService, private _userService: UserService, public snackBar: MatSnackBar) { 
     _meetingService.getMeetingRooms().subscribe((meetingRooms)=>{
@@ -53,27 +54,49 @@ export class ReserveMeetingRoomComponent implements OnInit {
   }
 
   onSubmit(){
+    if(this.newMeeting.start.hours < this.newMeeting.end.hours){
+
     this.submitted = true;
     this.pageLoaded = false;
     this.newMeeting.users = new Array<User>();
     this.newMeeting.users.push(this.currentUser);
-    this._meetingService.postMeeting(this.newMeeting).subscribe(()=>{
-      this.snackBar.open("Reservering van ruimte is geslaagd!","Sluiten", {
+    this._meetingService.postMeeting(this.newMeeting).subscribe(message=>{
+      console.log(message);
+      if(message == null){
+        this.snackBar.open("Er is al een reservering op dat moment.","Sluiten", {
+          duration: 4000,
+          verticalPosition: 'top',
+          horizontalPosition:'center'
+        });
+        this.submitted=false;
+        this.pageLoaded=true;
+      }
+      else{
+        this.snackBar.open("Reservering van ruimte is geslaagd!","Sluiten", {
         duration: 4000,
         verticalPosition: 'top',
-        horizontalPosition:'center',
-        panelClass: 'primary'
+        horizontalPosition:'center'
       }), this.router.navigate(['/home']);
+      }
+      
     }, error=>{
       this.submitted = false;
       this.pageLoaded = true;
-      this.snackBar.open("Er ging iets mis, probeer opnieuw","Sluiten", {
+      this.snackBar.open(error,"Sluiten", {
         duration: 4000,
         verticalPosition: 'top',
-        horizontalPosition:'center',
-        panelClass: 'primary'
+        horizontalPosition:'center'
       })
     });
+  }
+  else{
+    this.snackBar.open("Het startuur is later dan het einduur.","Sluiten", {
+      duration: 4000,
+      verticalPosition: 'top',
+      horizontalPosition:'center'
+    })
+
+  }
 
   }
 
