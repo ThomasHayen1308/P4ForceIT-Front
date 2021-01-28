@@ -8,6 +8,7 @@ export class Reservation {
         public start: Time,
         public end: Time,
         public date: Date,
+        public present: boolean,
         public chair: Chair,
         public user: User
     ) { }

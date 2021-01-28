@@ -23,7 +23,7 @@ export class ReserveDeskComponent implements OnInit {
 
   showDetails: boolean = false;
 
-  newReservation: Reservation = new Reservation(0, null, null, null, null, null);
+  newReservation: Reservation = new Reservation(0, null, null, null, false, null, null);
 
   campusId: number = 6;
 
