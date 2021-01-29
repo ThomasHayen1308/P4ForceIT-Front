@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiUrl: 'https://api.elizoned.be'
+  apiUrl: 'https://api.elizoned.be/'
 };
