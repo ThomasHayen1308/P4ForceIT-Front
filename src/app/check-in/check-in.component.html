@@ -4,7 +4,7 @@
         <hr>
         <div class="content">
             <button mat-raised-button (click)="startScan()" color="accent"><mat-icon>qr_code_scanner</mat-icon> Start scan</button>
-            <button mat-raised-button (click)="reset()" color="warn" *ngIf="scanResult"><mat-icon>replay</mat-icon> Reset</button>
+            <button mat-raised-button (click)="reset()" color="warn" *ngIf="scanResult">Reset <mat-icon>replay</mat-icon></button>
 
             <video #video [hidden]="!scanActive" width="100%"></video>
             
