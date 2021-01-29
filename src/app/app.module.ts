@@ -15,6 +15,8 @@ import { MeetingsModule } from './meetings/meetings.module';
 import { MyReservationsModule } from './my-reservations/my-reservations.module';
 import { ReservationsModule } from './reservations/reservations.module';
 import { CheckInModule } from './check-in/check-in.module';
+import { DataModule } from './data/data.module';
+import { TrackingModule } from './tracking/tracking.module';
 
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatDialogModule } from '@angular/material/dialog';
@@ -27,7 +29,7 @@ import { ErrorPageComponent } from './error-page/error-page.component';
     AppComponent,
     HeaderComponent,
     ErrorPageComponent,
-    DialogLogout
+    DialogLogout,
   ],
   imports: [
     BrowserModule,
@@ -43,7 +45,9 @@ import { ErrorPageComponent } from './error-page/error-page.component';
     ReservationsModule,
     CheckInModule,
     MatToolbarModule,
-    MatDialogModule
+    MatDialogModule,
+    DataModule,
+    TrackingModule
   ],
   providers: [
     {

@@ -49,4 +49,12 @@ export class HomeComponent implements OnInit {
   toMeetings() {
     this.router.navigate(['/meetings'])
   }
+
+  toTracking(){
+    this.router.navigate(['tracking'])
+  }
+
+  toData(){
+    this.router.navigate(['gegevens'])
+  }
 }

@@ -14,6 +14,9 @@ import { CheckInComponent } from './check-in/check-in.component';
 import { ConfirmComponent } from './check-in/confirm/confirm.component';
 
 import { AuthGuard } from './auth/guards/auth.guard';
+import { AdminGuard } from './auth/guards/admin.guard';
+import { TrackingComponent } from './tracking/tracking/tracking.component';
+import { DataComponent } from './data/data/data.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -38,6 +41,8 @@ const routes: Routes = [
   { path: 'mijn-reservaties', component: MyReservationsComponent, canActivate: [AuthGuard] },
 
   { path: 'login', component: AuthComponent },
+  { path:'tracking', component: TrackingComponent, canActivate: [AdminGuard]},
+  { path:'gegevens', component: DataComponent, canActivate: [AdminGuard]},
 
   { path: 'not-found', component: ErrorPageComponent, data: { message: 'Page not found!' } },
   { path: 'not-authorized', component: ErrorPageComponent, data: { message: 'You are not allowed to access this page!' } },
