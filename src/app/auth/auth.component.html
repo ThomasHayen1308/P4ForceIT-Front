@@ -7,7 +7,7 @@
         <form class="login-form" #authForm="ngForm" (ngSubmit)="onSubmit(authForm)">
             <mat-form-field>
                 <mat-label>Username</mat-label>
-                <input matInput placeholder="Ex. dirk.janssens@Elision.com" name="username" id="username" #username="ngModel" ngModel required>
+                <input matInput placeholder="Ex. djanssens" name="username" id="username" #username="ngModel" ngModel required>
                 <mat-error *ngIf="username.invalid">Vul een correcte username in!</mat-error>
             </mat-form-field>
             <mat-form-field>

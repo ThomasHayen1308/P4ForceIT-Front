@@ -1,0 +1,39 @@
+<div class="page fadein">
+    <mat-card>
+        <h1>Gegevens</h1>
+        <hr>
+        <div *ngIf="pageLoaded" class="data">
+            <p>
+                Aantal stoelen: {{data.chairAmount}}
+            </p>
+            <hr>
+            <p>
+                Aantal keukens: {{data.kitchenAmount}}
+            </p>
+            <hr>
+            <p>
+                Totaal aantal reserveringen: {{data.reservationAmount}}
+            </p>
+            <hr>
+            <p>
+                Totaal aantal meetings: {{data.meetingAmount}}
+            </p>
+            <hr>
+            <p>
+                Totaal aantal gebruikers: {{data.userAmount}}
+            </p>
+
+        </div>
+        <div *ngIf="!pageLoaded">
+            <mat-progress-spinner style="margin: auto;" mode="indeterminate" color="primary"></mat-progress-spinner>
+        </div>
+        <div class="page-buttons">
+            <p>
+                <button mat-raised-button color="warn" (click)="reload()"><mat-icon>refresh</mat-icon> Herlaad</button>
+            </p>
+            <p>
+                <button mat-raised-button color="primary" (click)="toHome()"><mat-icon>home</mat-icon> Hoofdmenu</button>
+            </p>
+        </div>
+    </mat-card>
+</div>
