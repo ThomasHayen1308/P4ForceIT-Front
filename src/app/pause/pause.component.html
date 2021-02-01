@@ -29,6 +29,9 @@
         </div>
                
         <div class="page-buttons">
+            <p>
+                <button mat-raised-button color="accent" (click)="reload()"><mat-icon>cached</mat-icon> Herladen</button>
+            </p>
             <p *ngIf="currentUserRole">
                 <button mat-raised-button color="warn" (click)="resetKitchens()"><mat-icon>refresh</mat-icon> Reset Keukens</button>
             </p>

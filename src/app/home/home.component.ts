@@ -55,6 +55,6 @@ export class HomeComponent implements OnInit {
   }
 
   toData(){
-    this.router.navigate(['gegevens'])
+    this.router.navigate(['vandaag'])
   }
 }
