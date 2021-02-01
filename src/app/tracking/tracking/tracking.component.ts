@@ -9,6 +9,7 @@ import { ReservationService } from 'src/app/services/reservation.service';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { Time } from '@angular/common';
+import { animate, state, style, transition, trigger } from '@angular/animations';
 
 interface ShowReservation {
   naam: string;
@@ -23,11 +24,19 @@ interface ShowReservation {
 @Component({
   selector: 'app-tracking',
   templateUrl: './tracking.component.html',
-  styleUrls: ['./tracking.component.scss', '../../styles/page_style.scss']
+  styleUrls: ['./tracking.component.scss', '../../styles/page_style.scss'],
+  animations: [
+    trigger('detailExpand', [
+      state('collapsed', style({ height: '0px', minHeight: '0' })),
+      state('expanded', style({ height: '*' })),
+      transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
+    ]),
+  ],
 })
 export class TrackingComponent implements OnInit, AfterViewInit {
 
-  displayedColumns: string[] = ['naam', 'email', 'datum', 'tijdslot', 'campus', 'sectie'];
+  displayedColumns: string[] = ['naam', 'datum', 'tijdslot', 'campus', 'sectie'];
+  expandedElement: Reservation | null;
 
   pageLoaded: boolean = true;
 
