@@ -1,0 +1,6 @@
+<h1 mat-dialog-title>Meeting annuleren</h1>
+<div mat-dialog-content>Bent u zeker dat u de meeting op {{currentMeeting.date | date}} met {{currentMeeting.companyName}} wilt annuleren?</div>
+<div mat-dialog-actions>
+  <button mat-button mat-dialog-close>Nee</button>
+  <button mat-button [mat-dialog-close]="true" color="warn" cdkFocusInitial (click)="onDelete()">Ja</button>
+</div>

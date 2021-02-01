@@ -1,6 +1,0 @@
-<h1 mat-dialog-title>Reservatie annuleren</h1>
-<div mat-dialog-content>Bent u zeker dat u de reservatie voor "{{currentReservation.date | date}}" op "{{currentReservation.campus}}" wilt annuleren?</div>
-<div mat-dialog-actions>
-  <button mat-button mat-dialog-close>Nee</button>
-  <button mat-button [mat-dialog-close]="true" color="warn" cdkFocusInitial (click)="onDelete()">Ja</button>
-</div>

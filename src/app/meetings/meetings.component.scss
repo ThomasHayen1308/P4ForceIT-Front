@@ -1,3 +1,15 @@
-th{
+th {
     text-align: center !important;
 }
+
+.button-delete {
+    margin: auto !important;
+    padding: auto !important;
+    width: auto !important;
+
+    .delete {
+        padding-bottom: 20px !important;
+    }
+    
+}
+

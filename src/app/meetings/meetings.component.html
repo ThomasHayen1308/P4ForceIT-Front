@@ -9,36 +9,54 @@
             </mat-form-field>
 
             <div class="mat-elevation-z8">
-                <table mat-table [dataSource]="dataSource"> <!--matSort-->
+                <table mat-table [dataSource]="dataSource">
+                    <!--matSort-->
 
                     <!-- Datum Column -->
                     <ng-container matColumnDef="datum">
-                        <th mat-header-cell *matHeaderCellDef> Datum </th> <!--mat-sort-header-->
+                        <th mat-header-cell *matHeaderCellDef> Datum </th>
+                        <!--mat-sort-header-->
                         <td mat-cell *matCellDef="let meeting"> {{meeting.date | date}} </td>
                     </ng-container>
 
                     <!-- Ruimte Column -->
                     <ng-container matColumnDef="ruimtenaam">
-                        <th mat-header-cell *matHeaderCellDef> Ruimte </th> <!--mat-sort-header-->
+                        <th mat-header-cell *matHeaderCellDef> Ruimte </th>
+                        <!--mat-sort-header-->
                         <td mat-cell *matCellDef="let meeting"> {{meeting.meetingRoom}} </td>
                     </ng-container>
 
                     <!-- Bedrijf Column -->
                     <ng-container matColumnDef="bedrijfsnaam">
-                        <th mat-header-cell *matHeaderCellDef> Bedrijf </th> <!--mat-sort-header-->
+                        <th mat-header-cell *matHeaderCellDef> Bedrijf </th>
+                        <!--mat-sort-header-->
                         <td mat-cell *matCellDef="let meeting"> {{meeting.companyName}} </td>
                     </ng-container>
 
                     <!-- # personen Column -->
                     <ng-container matColumnDef="aantalPersonen">
-                        <th mat-header-cell *matHeaderCellDef> # personen </th> <!--mat-sort-header-->
+                        <th mat-header-cell *matHeaderCellDef> # personen </th>
+                        <!--mat-sort-header-->
                         <td mat-cell *matCellDef="let meeting"> {{meeting.numberOfPersons}} </td>
                     </ng-container>
 
                     <!-- # start Column -->
                     <ng-container matColumnDef="start">
-                        <th mat-header-cell *matHeaderCellDef> Tijdstip </th> <!--mat-sort-header-->
-                        <td mat-cell *matCellDef="let meeting"> {{ meeting.start | timepipe }} - {{ meeting.end | timepipe }}</td>
+                        <th mat-header-cell *matHeaderCellDef> Tijdstip </th>
+                        <!--mat-sort-header-->
+                        <td mat-cell *matCellDef="let meeting"> {{ meeting.start | timepipe }} - {{ meeting.end |
+                            timepipe }}</td>
+                    </ng-container>
+
+                    <!-- # start Column -->
+                    <ng-container matColumnDef="actions">
+                        <th mat-header-cell *matHeaderCellDef>  </th>
+                        <!--mat-sort-header-->
+                        <td mat-cell *matCellDef="let meeting">
+                            <button class="button-delete" mat-icon-button color="warn" (click)="onDeleteMeeting(meeting.id)" *ngIf="meeting.creatorId === currentUser.id">
+                                <mat-icon class="delete">delete</mat-icon>
+                            </button>
+                        </td>
                     </ng-container>
 
                     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
@@ -61,7 +79,9 @@
         </div>
         <div class="page-buttons">
             <p>
-                <button mat-raised-button color="primary" (click)="toHome()"><mat-icon>home</mat-icon> Hoofdmenu</button>
+                <button mat-raised-button color="primary" (click)="toHome()">
+                    <mat-icon>home</mat-icon> Hoofdmenu
+                </button>
             </p>
         </div>
     </mat-card>

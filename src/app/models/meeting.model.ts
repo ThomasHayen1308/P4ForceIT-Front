@@ -10,6 +10,7 @@ export class Meeting {
         public date: Date,
         public companyName: string,
         public numberOfPersons: number,
+        public creator: User,
         public meetingRoom: MeetingRoom,
         public users?: User[]
     ) { }

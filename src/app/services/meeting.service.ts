@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnDestroy } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, Subject } from 'rxjs';
 
@@ -13,27 +13,29 @@ import { MeetingRoom } from '../models/meeting-room.model';
 export class MeetingService {
     baseUrl: string = environment.apiUrl;
 
-    private meetings: Meeting[] = [];
-    private meetingsUpdated = new Subject<Meeting[]>();
+    meetingsUpdated = new Subject<number>();
 
     constructor(private http: HttpClient) { }
 
     getMeetings() {
-        return this.http.get<Meeting[]>(this.baseUrl + 'meetings').subscribe((meetings) => {
-            this.meetings = meetings;
-            this.meetingsUpdated.next([...this.meetings]);
-        });
+        return this.http.get<Meeting[]>(this.baseUrl + 'meetings');
+    }
+
+    getMeetingById(id: number) {
+        return this.http.get<Meeting>(this.baseUrl + 'meetings/' + id);
     }
 
     getMeetingRooms(): Observable<MeetingRoom[]> {
-        return this.http.get<MeetingRoom[]>(this.baseUrl+"meetings/rooms");
+        return this.http.get<MeetingRoom[]>(this.baseUrl + "meetings/rooms");
     }
 
-    postMeeting(newMeeting: Meeting){
-        return this.http.post<Meeting>(this.baseUrl+"meetings", newMeeting);
+    postMeeting(newMeeting: Meeting) {
+        return this.http.post<Meeting>(this.baseUrl + "meetings", newMeeting);
     }
 
-    getMeetingsUpdateListener() {
-        return this.meetingsUpdated.asObservable();
+    deleteMeeting(id: number) {
+        return this.http.delete<Meeting>(this.baseUrl + 'meetings/' + id).subscribe(() => {
+            this.meetingsUpdated.next(id);
+        })
     }
 }
