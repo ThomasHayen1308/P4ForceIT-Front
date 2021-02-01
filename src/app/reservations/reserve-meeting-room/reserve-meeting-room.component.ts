@@ -18,7 +18,7 @@ export class ReserveMeetingRoomComponent implements OnInit {
 
   pageLoaded: boolean = false;
 
-  newMeeting: Meeting = new Meeting(0, null, null, null, null, null, null);
+  newMeeting: Meeting = new Meeting(0, null, null, null, null, null, null, null);
 
   meetingRooms: MeetingRoom[];
 
@@ -58,8 +58,9 @@ export class ReserveMeetingRoomComponent implements OnInit {
     this.pageLoaded = false;
     this.newMeeting.users = new Array<User>();
     this.newMeeting.users.push(this.currentUser);
-    this._meetingService.postMeeting(this.newMeeting).subscribe(message=>{
+    this._meetingService.postMeeting(this.newMeeting).subscribe((message)=>{
       console.log(message);
+      this._meetingService.meetingsUpdated.next(message.id); // next new meeting id to meeting service
       if(message == null){
         this.snackBar.open("Er is al een reservering op dat moment.","Sluiten", {
           duration: 4000,
