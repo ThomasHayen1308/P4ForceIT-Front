@@ -26,7 +26,7 @@
 
                 <ng-container matColumnDef="Tijdstip">
                     <th mat-header-cell *matHeaderCellDef> Tijdstip </th>
-                    <td mat-cell *matCellDef="let reservation"> {{ reservation.start }} - {{ reservation.end }} </td>
+                    <td mat-cell *matCellDef="let reservation"> {{ reservation.start | timepipe }} - {{ reservation.end | timepipe }} </td>
                 </ng-container>
 
                 <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->

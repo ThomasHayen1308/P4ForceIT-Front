@@ -9,13 +9,20 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatBadgeModule } from '@angular/material/badge';
 import {FormsModule} from '@angular/forms';
 
 import { ShortenPipe } from './shorten.pipe';
+import { PresentPipe } from './present.pipe';
+import { OccupiedPipe } from './occupied.pipe';
+import { TimepipePipe } from './timepipe.pipe';
 
 @NgModule({
   declarations: [
-    ShortenPipe
+    ShortenPipe,
+    PresentPipe,
+    OccupiedPipe,
+    TimepipePipe
   ],
   imports: [
     CommonModule,
@@ -27,7 +34,8 @@ import { ShortenPipe } from './shorten.pipe';
     MatInputModule,
     FormsModule,
     MatSelectModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatBadgeModule
   ],
   exports: [
     MatButtonModule,
@@ -39,7 +47,10 @@ import { ShortenPipe } from './shorten.pipe';
     MatSelectModule,
     FormsModule,
     MatSnackBarModule,
-    ShortenPipe
+    ShortenPipe,
+    OccupiedPipe,
+    PresentPipe,
+    TimepipePipe
   ]
 })
 export class SharedModule { }
