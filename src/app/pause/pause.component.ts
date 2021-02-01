@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
+import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { Observable } from 'rxjs';
@@ -21,7 +23,7 @@ export class PauseComponent implements OnInit {
 
   currentUserRole: boolean = false;
 
-  constructor(private router: Router, private _kitchenService: KitchenService, private _userService: UserService) {
+  constructor(private router: Router, private _kitchenService: KitchenService, private _userService: UserService, private _snackbar: MatSnackBar) {
     const decodedToken = new JwtHelperService().decodeToken(localStorage.getItem("userToken"));
     this._userService.getUserById(decodedToken.userId).subscribe(user=>{
       if(user.role.name=="admin"){
@@ -48,22 +50,48 @@ export class PauseComponent implements OnInit {
     this.router.navigate(['/home'])
   }
 
-  resetKitchens(){
-    this._kitchenService.resetKitchens().subscribe(kitchens=>{
+  reload(){
+    this.alarmAudio.pause();
+    this._kitchenService.getKitchens().subscribe(kitchens=>{
       this.kitchens = kitchens;
       this.checkNumberOfPeople();
     })
   }
 
+  resetKitchens(){
+    this._kitchenService.resetKitchens().subscribe(kitchens=>{
+      this.kitchens = kitchens;
+      this.alarmAudio.pause();
+    })
+  }
+
   checkNumberOfPeople(){
+    let alarmKeukens: string = "";
     let alarm: boolean = false;
     this.kitchens.forEach(kitchen => {
       if(kitchen.numberOfPersons > kitchen.maxPersons){
+        alarmKeukens += kitchen.campus.name;
         alarm = true;
       }
     });
     if(alarm.valueOf() == true){
+      this.openSnackBar(alarmKeukens);
+      this.alarmAudio.load();
       this.alarmAudio.play();      
     }
   }
+
+  openSnackBar(keukens: string){
+    let snackBarRef = this._snackbar.open("Te veel mensen in keuken(s): " + keukens, "Sluiten", {
+      duration: 5600,
+      verticalPosition: 'top',
+      horizontalPosition: 'center'
+    })
+
+    snackBarRef.afterDismissed().subscribe(()=>{
+      this.alarmAudio.pause()
+    });
+  }
+
 }
+
