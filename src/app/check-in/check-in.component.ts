@@ -129,8 +129,10 @@ export class CheckInComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   stopVideo() {
-    const stopvideo = this.videoElement.srcObject.getTracks();
-    stopvideo[0].stop();
+    if (this.videoElement.srcObject) {
+      const stopvideo = this.videoElement.srcObject.getTracks();
+      stopvideo[0].stop();
+    }
   }
 
   toHome() {
@@ -139,5 +141,8 @@ export class CheckInComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngOnDestroy() {
     this.stopScan();
+    setTimeout(() => {
+      this.stopScan()
+    }, 1000)
   }
 }
