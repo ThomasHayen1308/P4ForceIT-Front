@@ -15,6 +15,8 @@ export class PauseComponent implements OnInit {
 
   kitchens: Kitchen[];
 
+  alarmAudio = new Audio();
+
   pageLoaded: boolean = false;
 
   currentUserRole: boolean = false;
@@ -26,11 +28,15 @@ export class PauseComponent implements OnInit {
         this.currentUserRole = true;
       };
     })
+
    }
 
   ngOnInit(): void {
+    this.alarmAudio.src="/assets/audio/alarm.mp3";
+    this.alarmAudio.load();
     this._kitchenService.getKitchens().subscribe((kitchens) =>{
       this.kitchens = kitchens;
+      this.checkNumberOfPeople();
       this.pageLoaded = true;
     });
     
@@ -38,12 +44,26 @@ export class PauseComponent implements OnInit {
   }
 
   toHome() {
+    this.alarmAudio.pause();
     this.router.navigate(['/home'])
   }
 
   resetKitchens(){
     this._kitchenService.resetKitchens().subscribe(kitchens=>{
       this.kitchens = kitchens;
+      this.checkNumberOfPeople();
     })
+  }
+
+  checkNumberOfPeople(){
+    let alarm: boolean = false;
+    this.kitchens.forEach(kitchen => {
+      if(kitchen.numberOfPersons > kitchen.maxPersons){
+        alarm = true;
+      }
+    });
+    if(alarm.valueOf() == true){
+      this.alarmAudio.play();      
+    }
   }
 }
