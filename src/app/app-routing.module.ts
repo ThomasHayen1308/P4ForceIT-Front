@@ -41,8 +41,8 @@ const routes: Routes = [
   { path: 'mijn-reservaties', component: MyReservationsComponent, canActivate: [AuthGuard] },
 
   { path: 'login', component: AuthComponent },
-  { path:'tracking', component: TrackingComponent, canActivate: [AdminGuard]},
-  { path:'gegevens', component: DataComponent, canActivate: [AdminGuard]},
+  { path:'tracking', component: TrackingComponent, canActivate: [AuthGuard]}, // AdminGuard in future
+  { path:'gegevens', component: DataComponent, canActivate: [AuthGuard]},
 
   { path: 'not-found', component: ErrorPageComponent, data: { message: 'Page not found!' } },
   { path: 'not-authorized', component: ErrorPageComponent, data: { message: 'You are not allowed to access this page!' } },

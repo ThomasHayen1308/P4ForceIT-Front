@@ -20,6 +20,10 @@ export class ReservationService implements OnDestroy {
 
     constructor(private http: HttpClient) { }
 
+    getReservations() {
+        return this.http.get<Reservation[]>(this.baseUrl + 'reservations')
+    }
+
     getReservationsByUserId(userId: number) {
         return this.http.get<Reservation[]>(this.baseUrl + 'reservations/user/' + userId);
     }

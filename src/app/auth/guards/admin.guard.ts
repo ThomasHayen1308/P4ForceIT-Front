@@ -12,20 +12,20 @@ import { AuthService } from '../auth.service';
 })
 export class AdminGuard implements CanActivate {
   private user: User;
-  constructor(private _userService: UserService, private router: Router){
+  constructor(private _userService: UserService, private router: Router) {
 
   }
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-      const userToken = new JwtHelperService().decodeToken(localStorage.getItem("userToken"));
-      this._userService.getUserById(userToken.userId).subscribe(user=>{
+    const userToken = new JwtHelperService().decodeToken(localStorage.getItem("userToken"));
+    this._userService.getUserById(userToken.userId).toPromise()
+      .then(user => {
         this.user = user;
       })
-      
-        if (this.user.role.name == "admin") {
-            return true
-        }
-        return this.router.createUrlTree(['/home']);
-    }; 
+    if (this.user.role.name == "admin") {
+      return true
+    }
+    return this.router.createUrlTree(['/home']);
+  };
 }
