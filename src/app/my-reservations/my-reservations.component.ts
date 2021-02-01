@@ -51,7 +51,6 @@ export class MyReservationsComponent implements OnInit, OnDestroy {
 
   deleteReservationSub: Subscription;
   userSub: Subscription;
-  reservationSub: Subscription;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
@@ -63,7 +62,8 @@ export class MyReservationsComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.pageLoaded = false;
-    this.deleteReservationSub = this.reservationService.reservationsChanged.subscribe(() => {
+    this.deleteReservationSub = this.reservationService.reservationsChanged.subscribe((id) => {
+      this.ngOnDestroy();
       this.showReservationsForUser = [];
       this.ngOnInit();
     })
@@ -72,22 +72,24 @@ export class MyReservationsComponent implements OnInit, OnDestroy {
       this.currentUser = user;
     })
 
-    this.reservationSub = this.reservationService.getReservationsByUserId(this.currentUser.id).subscribe((reservations: Reservation[]) => {
-      this.reservationsForUser = reservations;
-      reservations.map((reservation) => {
-        this.showReservationsForUser.push({
-          id: reservation.id,
-          start: reservation.start,
-          end: reservation.end,
-          date: reservation.date,
-          chair: reservation.chair.name,
-          campus: reservation.chair.section.campus.name,
-          section: reservation.chair.section.name,
+    this.reservationService.getReservationsByUserId(this.currentUser.id).toPromise()
+      .then((reservations: Reservation[]) => {
+        this.reservationsForUser = reservations;
+        reservations.map((reservation) => {
+          this.showReservationsForUser.push({
+            id: reservation.id,
+            start: reservation.start,
+            end: reservation.end,
+            date: reservation.date,
+            chair: reservation.chair.name,
+            campus: reservation.chair.section.campus.name,
+            section: reservation.chair.section.name,
+          })
         })
+      }).then(() => {
+        this.dataSource = new MatTableDataSource(this.showReservationsForUser);
+        this.pageLoaded = true;
       })
-      this.dataSource = new MatTableDataSource(this.showReservationsForUser);
-      this.pageLoaded = true;
-    })
   }
 
   ngAfterViewInit() {
@@ -110,7 +112,6 @@ export class MyReservationsComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.deleteReservationSub.unsubscribe();
     this.userSub.unsubscribe();
-    this.reservationSub.unsubscribe();
   }
 }
 
