@@ -50,7 +50,8 @@ import { TimepipePipe } from './timepipe.pipe';
     ShortenPipe,
     OccupiedPipe,
     PresentPipe,
-    TimepipePipe
+    TimepipePipe,
+    MatBadgeModule
   ]
 })
 export class SharedModule { }

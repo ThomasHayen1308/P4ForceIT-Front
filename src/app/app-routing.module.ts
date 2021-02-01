@@ -42,7 +42,7 @@ const routes: Routes = [
 
   { path: 'login', component: AuthComponent },
   { path:'tracking', component: TrackingComponent, canActivate: [AdminGuard]},
-  { path:'gegevens', component: DataComponent, canActivate: [AdminGuard]},
+  { path:'vandaag', component: DataComponent, canActivate: [AdminGuard]},
 
   { path: 'not-found', component: ErrorPageComponent, data: { message: 'Page not found!' } },
   { path: 'not-authorized', component: ErrorPageComponent, data: { message: 'You are not allowed to access this page!' } },

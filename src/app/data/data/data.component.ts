@@ -50,5 +50,25 @@ export class DataComponent implements OnInit {
     }
   }
 
+  reload(){
+    this.pageLoaded = false;
+    this._dataService.getData().subscribe(data=>{
+      this.data = data;
+      this.dataSource.data = this.data;
+      this.pageLoaded = true;
+    })
+    this.dataSource.paginator = this.paginator;    
+  }
+
+  setBadgeColor(chairoccupancy: boolean){
+    if(chairoccupancy == true){
+      return "warn";
+    }else{
+      return "primary";
+    }
+
+
+  }
+
 
 }
