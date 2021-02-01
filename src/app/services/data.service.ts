@@ -3,8 +3,8 @@ import { Injectable } from '@angular/core';
 
 import { environment } from './../../environments/environment';
 
-import { Data } from '../models/data.model'
 import { Observable } from 'rxjs';
+import { Reservation } from '../models/reservation.model';
 
 @Injectable({
     providedIn: 'root'
@@ -15,7 +15,7 @@ export class DataService {
 
     constructor(private http: HttpClient) { }
 
-    getData(): Observable<Data>{
-        return this.http.get<Data>(this.BaseURL+"data");
+    getData(): Observable<Reservation[]>{
+        return this.http.get<Reservation[]>(this.BaseURL+"data");
     }
 }
