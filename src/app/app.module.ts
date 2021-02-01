@@ -22,7 +22,9 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatDialogModule } from '@angular/material/dialog';
 
 import { AuthInterceptor } from './auth/auth.interceptor';
+import { ErrorInterceptor } from './error.interceptor';
 import { ErrorPageComponent } from './error-page/error-page.component';
+import { ErrorComponent } from './error/error.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +32,7 @@ import { ErrorPageComponent } from './error-page/error-page.component';
     HeaderComponent,
     ErrorPageComponent,
     DialogLogout,
+    ErrorComponent
   ],
   imports: [
     BrowserModule,
@@ -54,7 +57,12 @@ import { ErrorPageComponent } from './error-page/error-page.component';
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,
       multi: true
-    }
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: ErrorInterceptor,
+      multi: true
+    },
   ],
   bootstrap: [AppComponent]
 })
