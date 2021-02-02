@@ -68,7 +68,7 @@ export class TrackingComponent implements OnInit, AfterViewInit {
         })
       })
       .then(() => {
-        this.dataSource = new MatTableDataSource(this.showReservations);
+        this.dataSource.data = this.showReservations;
         this.pageLoaded = true;
       })
   }
