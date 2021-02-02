@@ -1,39 +1,49 @@
 <div class="page fade-in" *ngIf="pageLoaded">
-    
-    <mat-card>
-        <h1>Welkom {{currentUser.name}}!</h1>
-        <h2>Hoofdmenu</h2>
-        <hr>
-        <div class="page-buttons">
-            <p>
-                <button mat-raised-button color="accent" (click)="toCheckIn()">Inchecken</button>
-            </p>
-            <p>
-                <button mat-raised-button color="accent" (click)="toReservations()">Reserveren</button>
-            </p>
-            <p>
-                <button mat-raised-button color="accent" (click)="toPause()">Pauze</button>
-            </p>
-            <p>
-                <button mat-raised-button color="accent" (click)="toMyReservations()">Mijn reservaties</button>
-            </p>
-            <p>
-                <button mat-raised-button color="accent" (click)="toMeetings()">Meetings bekijken</button>
-            </p>
-        </div>
-    </mat-card>
-    <br>
-    <mat-card *ngIf="adminUser">
-        <h2>Beheer</h2>
-        <hr>
-        <div class="page-buttons">
-            <p>
-                <button mat-raised-button color="warn" (click)="toTracking()" >Tracking</button>
-            </p>
-            <p>
-                <button mat-raised-button color="warn" (click)="toData()" >Reservaties vandaag</button>
-            </p>
 
-        </div>
-    </mat-card>
+  <mat-card>
+    <h1>Welkom {{currentUser.name}}!</h1>
+    <h2>Hoofdmenu</h2>
+    <hr>
+    <div class="page-buttons">
+      <p>
+        <button mat-raised-button color="accent" (click)="toCheckIn()">Inchecken</button>
+      </p>
+      <p>
+        <button mat-raised-button color="accent" (click)="toReservations()">Reserveren</button>
+      </p>
+      <p>
+        <button mat-raised-button color="accent" (click)="toPause()">Pauze</button>
+      </p>
+      <p>
+        <button mat-raised-button color="accent" (click)="toMyReservations()">Mijn reservaties</button>
+      </p>
+      <p>
+        <button mat-raised-button color="accent" (click)="toMeetings()">Meetings bekijken</button>
+      </p>
+    </div>
+  </mat-card>
+  <br>
+  <mat-card *ngIf="adminUser">
+    <h2>Beheer</h2>
+    <hr>
+    <div class="page-buttons">
+      <p>
+        <button mat-raised-button color="warn" (click)="toTracking()">Tracking</button>
+      </p>
+      <p>
+        <button mat-raised-button color="warn" (click)="toData()">Reservaties vandaag</button>
+      </p>
+
+    </div>
+  </mat-card>
+  <br>
+  <mat-card>
+    <h2>Profiel</h2>
+    <hr>
+    <div class="page-buttons">
+      <p>
+        <button mat-raised-button class="profile-button" (click)="toProfile()"><mat-icon >account_circle</mat-icon> Mijn profiel</button>
+      </p>
+    </div>
+  </mat-card>
 </div>

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 
 import { AuthService } from '../auth/auth.service';
 
@@ -13,7 +14,7 @@ import { User } from '../models/user.model';
 export class HeaderComponent implements OnInit {
   user: User;
 
-  constructor(private _authService: AuthService, private dialog: MatDialog) { }
+  constructor(private _authService: AuthService, private dialog: MatDialog, private router: Router) { }
 
   ngOnInit(): void {
     this._authService.user.subscribe((user: User) => {
@@ -24,6 +25,10 @@ export class HeaderComponent implements OnInit {
   onLogout() {
     this.dialog.open(DialogLogout)
   }
+
+  toProfile() {
+    this.router.navigate(['/profiel']);
+  }
 }
 
 // DialogLogout Component => kan eventueel nog in andere file gezet worden
@@ -33,7 +38,7 @@ export class HeaderComponent implements OnInit {
 })
 export class DialogLogout {
 
-  constructor(private _authService: AuthService) {}
+  constructor(private _authService: AuthService) { }
 
   ngOnInit() {
 

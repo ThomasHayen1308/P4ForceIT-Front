@@ -1,25 +1,31 @@
 ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
+  list-style: none;
+  padding: 0;
+  margin: 0;
 
-    li {
-        font-size: 1rem;
-    }
+  li {
+    font-size: 1rem;
+  }
 }
 
 a {
-    text-decoration: none;
-    color: white;
+  text-decoration: none;
+  color: white;
 }
 
 .spacer {
-    flex: 1 1 auto;
+  flex: 1 1 auto;
 }
 
-
-
 mat-icon {
-    font-size: 22px;
-    vertical-align: middle;
+  font-size: 22px;
+  vertical-align: middle;
+}
+
+.account-circle {
+  position: absolute;
+  top: 10px;
+  margin: auto;
+  text-align: center;
+  font-size: 36px;
 }
