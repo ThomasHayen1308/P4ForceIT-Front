@@ -45,7 +45,7 @@ export class MyReservationsComponent implements OnInit, OnDestroy {
   reservationsForUser: Reservation[] = [];
   showReservationsForUser: showReservationForUser[] = [];
 
-  dataSource = new MatTableDataSource<showReservationForUser>(this.showReservationsForUser);
+  dataSource = new MatTableDataSource<showReservationForUser>();
   columnsToDisplay = ['Datum', 'Campus', 'Sectie', 'Stoel', 'Tijdstip'];
   expandedElement: Reservation | null;
 
@@ -62,7 +62,7 @@ export class MyReservationsComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.pageLoaded = false;
-    this.deleteReservationSub = this.reservationService.reservationsChanged.subscribe((id) => {
+    this.deleteReservationSub = this.reservationService.reservationsChanged.subscribe(id=> {
       this.ngOnDestroy();
       this.showReservationsForUser = [];
       this.ngOnInit();
@@ -72,10 +72,9 @@ export class MyReservationsComponent implements OnInit, OnDestroy {
       this.currentUser = user;
     })
 
-    this.reservationService.getReservationsByUserId(this.currentUser.id).toPromise()
-      .then((reservations: Reservation[]) => {
+    this.reservationService.getReservationsByUserId(this.currentUser.id).subscribe(reservations => {
         this.reservationsForUser = reservations;
-        reservations.map((reservation) => {
+        reservations.map(reservation => {
           this.showReservationsForUser.push({
             id: reservation.id,
             start: reservation.start,
@@ -85,11 +84,10 @@ export class MyReservationsComponent implements OnInit, OnDestroy {
             campus: reservation.chair.section.campus.name,
             section: reservation.chair.section.name,
           })
-        })
-      }).then(() => {
-        this.dataSource = new MatTableDataSource(this.showReservationsForUser);
+        });
+        this.dataSource.data = this.showReservationsForUser;
         this.pageLoaded = true;
-      })
+      })    
   }
 
   ngAfterViewInit() {

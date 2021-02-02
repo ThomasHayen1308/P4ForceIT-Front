@@ -44,7 +44,7 @@ export class MeetingsComponent implements OnInit, OnDestroy {
   userSub: Subscription;
   meetingUpdateSub: Subscription;
 
-  dataSource = new MatTableDataSource(this.showMeetings);
+  dataSource = new MatTableDataSource<ShowMeeting>();
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   // @ViewChild(MatSort, { static: false }) sort: MatSort;
@@ -64,8 +64,8 @@ export class MeetingsComponent implements OnInit, OnDestroy {
       this.currentUser = user;
     })
 
-    this.meetingSub = this._meetingService.getMeetings().subscribe((meetings: Meeting[]) => {
-      meetings.map((meeting: Meeting) => {
+    this.meetingSub = this._meetingService.getMeetings().subscribe(meetings => {
+      meetings.map(meeting => {
         this.showMeetings.push({
           id: meeting.id,
           date: meeting.date,
@@ -77,7 +77,7 @@ export class MeetingsComponent implements OnInit, OnDestroy {
           creatorId: meeting.creator.id
         })
       });
-      this.dataSource = new MatTableDataSource(this.showMeetings);
+      this.dataSource.data = this.showMeetings;
       this.pageLoaded = true;
     })
   }

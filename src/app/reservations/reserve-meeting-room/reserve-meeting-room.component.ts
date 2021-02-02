@@ -57,7 +57,7 @@ export class ReserveMeetingRoomComponent implements OnInit {
     this.submitted = true;
     this.pageLoaded = false;
     this.newMeeting.users = new Array<User>();
-    this.newMeeting.users.push(this.currentUser);
+    this.newMeeting.creator = this.currentUser;
     this._meetingService.postMeeting(this.newMeeting).subscribe((message)=>{
       console.log(message);
       this._meetingService.meetingsUpdated.next(message.id); // next new meeting id to meeting service

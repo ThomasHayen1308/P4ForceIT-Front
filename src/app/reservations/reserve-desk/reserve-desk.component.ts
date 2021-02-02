@@ -25,7 +25,7 @@ export class ReserveDeskComponent implements OnInit {
 
   newReservation: Reservation = new Reservation(0, null, null, null, false, null, null);
 
-  campusId: number = 6;
+  campusId: number = 4;
 
   sections: Section[];
 
@@ -51,13 +51,14 @@ export class ReserveDeskComponent implements OnInit {
   setCampus(id: number){
     this.campusId = id;
     switch(this.campusId){
-      case 7: this.planImgPath = "/assets/Grondplan_Corda_2.png"; break;
+      case 5: this.planImgPath = "/assets/Grondplan_Corda_2.png"; break;
       default: this.planImgPath = "/assets/Grondplan_Corda_1.png"; break; 
     }
 
     this.newReservation.chair = null;
 
     this._reservationService.getSectionsByCampusId(this.campusId).subscribe((sections)=>{
+      console.log(sections);
       this.sections = sections;
     })
     this.showDetails = true;
