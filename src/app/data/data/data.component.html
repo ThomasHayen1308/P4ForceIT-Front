@@ -2,7 +2,7 @@
     <mat-card>
         <h1>Reservaties vandaag</h1>
         <hr>
-        <div *ngIf="data.length > 0 && pageLoaded" >
+        <div *ngIf="reservationss.length > 0 &&pageLoaded" >
             <mat-form-field>
                 <mat-label>Filter</mat-label>
                 <input matInput (keyup)="applyFilter($event)" placeholder="Ex. djanssens" #input>
@@ -12,15 +12,15 @@
               <table mat-table [dataSource]="dataSource" multiTemplateDataRows class="reservatietabel">
                 <ng-container matColumnDef="Gebruiker">
                     <th mat-header-cell *matHeaderCellDef> Gebruiker </th>
-                    <td mat-cell *matCellDef="let reservation"> {{reservation.user.name}} </td>
+                    <td mat-cell *matCellDef="let reservation"> {{reservation.username}} </td>
                   </ng-container>
                   <ng-container matColumnDef="Stoel">
                     <th mat-header-cell *matHeaderCellDef> Stoel</th>
-                    <td mat-cell *matCellDef="let reservation"> <span matBadge="{{reservation.chair.occupied | occupied}}" matBadgeOverlap="false" [matBadgeColor]="setBadgeColor(reservation.chair.occupied)" matBadgeSize="small">{{reservation.chair.name}}</span></td>
+                    <td mat-cell *matCellDef="let reservation"> <span matBadge="{{reservation.chair.occupied | occupied}}" matBadgeOverlap="false" [matBadgeColor]="setBadgeColor(reservation.chair.occupied)" matBadgeSize="small">{{reservation.chairname}}</span></td>
                   </ng-container>
                   <ng-container matColumnDef="Sectie/Campus">
                     <th mat-header-cell *matHeaderCellDef> Sectie/Campus </th>
-                    <td mat-cell *matCellDef="let reservation"> {{reservation.chair.section.name}}/{{reservation.chair.section.campus.name}} </td>
+                    <td mat-cell *matCellDef="let reservation"> {{reservation.sectionName}}/{{reservation.Campus}} </td>
                   </ng-container>
                   <ng-container matColumnDef="Tijdstip">
                     <th mat-header-cell *matHeaderCellDef> Tijdstip </th>
@@ -28,7 +28,7 @@
                   </ng-container>
                   <ng-container matColumnDef="Status">
                     <th mat-header-cell *matHeaderCellDef> Status </th>
-                    <td mat-cell *matCellDef="let reservation"> {{reservation.present | present}} </td>
+                    <td mat-cell *matCellDef="let reservation"> {{reservation.status}} </td>
                   </ng-container>
 
                   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
@@ -48,7 +48,7 @@
               <span matBadge="B" matBadgePosition="after" matBadgeOverlap="false" matBadgeColor="warn" matBadgeSize="small">stoel is bezet</span>
             </div>
         </div>
-        <div *ngIf="data.length <= 0 && pageLoaded">
+        <div *ngIf="reservationss.length <= 0 && pageLoaded">
             <h3>Er zijn voor vandaag geen reservaties gevonden</h3>
         </div>
         <div *ngIf="!pageLoaded">
