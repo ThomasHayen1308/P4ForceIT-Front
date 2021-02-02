@@ -22,5 +22,9 @@
         </button>
       </p>
     </div>
+
+    <!-- <button (click)="setLightDarkMode()">Dark Mode</button> -->
+    <mat-slide-toggle [(ngModel)]="darkMode" (change)="setLightDarkMode($event)">Dark mode</mat-slide-toggle>
+
   </mat-card>
 </div>
