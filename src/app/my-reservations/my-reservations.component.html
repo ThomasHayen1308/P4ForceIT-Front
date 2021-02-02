@@ -2,8 +2,9 @@
     <mat-card>
         <h1>Mijn reservaties</h1>
         <hr>
-        <div *ngIf="reservationsForUser.length > 0 && pageLoaded" class="mat-elevation-z8">
-            <table mat-table [dataSource]="dataSource" multiTemplateDataRows>
+        <div *ngIf="reservationsForUser.length > 0 && pageLoaded" >
+            <div class="mat-elevation-z8">
+                <table mat-table [dataSource]="dataSource" multiTemplateDataRows>
                 <ng-container matColumnDef="Datum">
                     <th mat-header-cell *matHeaderCellDef> Datum </th>
                     <td mat-cell *matCellDef="let reservation"> {{ reservation.date | date }} </td>
@@ -48,14 +49,19 @@
                 </tr>
                 <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
             </table>
-            <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+            
+            </div>
         </div>
+        <mat-paginator [pageSizeOptions]="[5, 10, 20]" [hidden]="pageLoaded" showFirstLastButtons class="mat-elevation-z8"></mat-paginator>
+        
         <div *ngIf="reservationsForUser.length <= 0 && pageLoaded">
             <h3>Je hebt nog geen reservaties</h3>
         </div>
         <div *ngIf="!pageLoaded">
             <mat-progress-spinner style="margin: auto;" mode="indeterminate" color="primary"></mat-progress-spinner>
         </div>
+        
+        
         <div>
             <p>
                 <button mat-raised-button color="primary" (click)="toHome()">

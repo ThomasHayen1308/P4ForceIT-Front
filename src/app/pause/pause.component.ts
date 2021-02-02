@@ -85,7 +85,8 @@ export class PauseComponent implements OnInit {
     let snackBarRef = this._snackbar.open("Te veel mensen in keuken(s): " + keukens, "Sluiten", {
       duration: 5600,
       verticalPosition: 'top',
-      horizontalPosition: 'center'
+      horizontalPosition: 'center',
+      panelClass: 'alarm-snackbar'
     })
 
     snackBarRef.afterDismissed().subscribe(()=>{

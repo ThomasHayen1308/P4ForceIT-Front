@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
-import { Data, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { Reservation } from 'src/app/models/reservation.model';
 import { DataService } from '../../services/data.service';
 
