@@ -75,7 +75,8 @@ export class ReserveDeskComponent implements OnInit {
       {
         duration: 3000,
         verticalPosition: 'top',
-        horizontalPosition: 'center'
+        horizontalPosition: 'center',
+        panelClass: 'warning-snackbar'
       });
       this.submitted = false;
       this.pageLoaded = true;
@@ -85,7 +86,8 @@ export class ReserveDeskComponent implements OnInit {
       {
         duration: 3000,
         verticalPosition: 'top',
-        horizontalPosition: 'center'
+        horizontalPosition: 'center',
+        panelClass: 'warning-snackbar'
       });
       this.router.navigate(['/home'])
       }
@@ -98,7 +100,8 @@ export class ReserveDeskComponent implements OnInit {
       {
         duration: 3000,
         verticalPosition: 'top',
-        horizontalPosition: 'center'
+        horizontalPosition: 'center',
+        panelClass: 'warning-snackbar'
       })
     });
   }

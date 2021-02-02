@@ -65,7 +65,8 @@ export class ReserveMeetingRoomComponent implements OnInit {
         this.snackBar.open("Er is al een reservering op dat moment.","Sluiten", {
           duration: 4000,
           verticalPosition: 'top',
-          horizontalPosition:'center'
+          horizontalPosition:'center',
+          panelClass: 'warning-snackbar'
         });
         this.submitted=false;
         this.pageLoaded=true;
@@ -74,7 +75,8 @@ export class ReserveMeetingRoomComponent implements OnInit {
         this.snackBar.open("Reservering van ruimte is geslaagd!","Sluiten", {
         duration: 4000,
         verticalPosition: 'top',
-        horizontalPosition:'center'
+        horizontalPosition:'center',
+        panelClass: 'warning-snackbar'
       }), this.router.navigate(['/home']);
       }
       
@@ -84,7 +86,8 @@ export class ReserveMeetingRoomComponent implements OnInit {
       this.snackBar.open(error,"Sluiten", {
         duration: 4000,
         verticalPosition: 'top',
-        horizontalPosition:'center'
+        horizontalPosition:'center',
+        panelClass: 'warning-snackbar'
       })
     });
   }

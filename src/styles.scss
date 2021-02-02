@@ -3,3 +3,32 @@
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
+
+.alarm-snackbar{
+    position: relative !important;
+    top: 45vh !important;
+    background-color: white !important;
+    border: red solid 3px;
+    color: red !important;
+    font-size: xx-large !important;
+    width: 50vh !important;
+    height: 5vh !important;
+    .mat-simple-snackbar-action{
+        color: red !important;
+    }
+}
+
+.warning-snackbar{
+    background-color: white !important;
+    border: #3056a1 solid 3px;
+    color: #3056a1 !important;
+    font-size: xx-large !important;
+    width: 50vh !important;
+    height: 5vh !important;
+    .mat-simple-snackbar-action{
+        color: #3056a1 !important;
+    }
+
+}
+
+
