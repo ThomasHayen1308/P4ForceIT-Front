@@ -58,7 +58,6 @@ export class ReserveDeskComponent implements OnInit {
     this.newReservation.chair = null;
 
     this._reservationService.getSectionsByCampusId(this.campusId).subscribe((sections)=>{
-      console.log(sections);
       this.sections = sections;
     })
     this.showDetails = true;
@@ -68,13 +67,12 @@ export class ReserveDeskComponent implements OnInit {
     this.submitted = true;
     this.pageLoaded = false;
     this.newReservation.user = this.currentUser;
-    console.log(this.newReservation);
     this._reservationService.postReservation(this.newReservation).subscribe(message=>{
       console.log(message);
       if(message == null){
         this.snackbar.open("Er is al een reservatie op dat moment.", "Sluiten",
       {
-        duration: 3000,
+        duration: 2500,
         verticalPosition: 'top',
         horizontalPosition: 'center',
         panelClass: 'warning-snackbar'
@@ -85,7 +83,7 @@ export class ReserveDeskComponent implements OnInit {
       else{
         this.snackbar.open("Reservatie geslaagd!", "Sluiten",
       {
-        duration: 3000,
+        duration: 2500,
         verticalPosition: 'top',
         horizontalPosition: 'center',
         panelClass: 'warning-snackbar'
@@ -99,7 +97,7 @@ export class ReserveDeskComponent implements OnInit {
       console.log(error);
       this.snackbar.open("Er ging iets mis...", "Sluiten",
       {
-        duration: 3000,
+        duration: 2500,
         verticalPosition: 'top',
         horizontalPosition: 'center',
         panelClass: 'warning-snackbar'

@@ -70,7 +70,7 @@
                 
             </div>
         </div>
-        <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons [hidden]="pageLoaded"></mat-paginator>
+        <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons class="mat-elevation-z8" [hidden]="pageLoaded"></mat-paginator>
         
         <div *ngIf="showMeetings.length <= 0 && pageLoaded">
             <h3>Er zijn geen meetings gevonden</h3>
