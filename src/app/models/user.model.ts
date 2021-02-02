@@ -7,6 +7,7 @@ export class User {
         public email: string,
         public password: string,
         public token: string,
+        public coins: number,
         public role: Role
     ) { }
 }
