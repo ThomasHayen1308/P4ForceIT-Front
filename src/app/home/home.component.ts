@@ -57,4 +57,8 @@ export class HomeComponent implements OnInit {
   toData(){
     this.router.navigate(['vandaag'])
   }
+
+  toProfile() {
+    this.router.navigate(['/profiel'])
+  }
 }
