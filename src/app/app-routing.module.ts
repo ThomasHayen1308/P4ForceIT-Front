@@ -17,6 +17,7 @@ import { AuthGuard } from './auth/guards/auth.guard';
 import { AdminGuard } from './auth/guards/admin.guard';
 import { TrackingComponent } from './tracking/tracking/tracking.component';
 import { DataComponent } from './data/data/data.component';
+import { ProfileComponent } from './profile/profile.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -44,6 +45,8 @@ const routes: Routes = [
 
   { path:'tracking', component: TrackingComponent, canActivate: [AuthGuard]}, // AdminGuard in future
   { path:'vandaag', component: DataComponent, canActivate: [AuthGuard]},
+
+  { path: 'profiel', component: ProfileComponent, canActivate: [AuthGuard] },
 
   { path: 'not-found', component: ErrorPageComponent, data: { message: 'Page not found!' } },
   { path: 'not-authorized', component: ErrorPageComponent, data: { message: 'You are not allowed to access this page!' } },
