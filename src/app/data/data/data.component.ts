@@ -112,6 +112,7 @@ setDataSourceAttributes() {
 
   reload(){
     this.pageLoaded = false;
+    this.reservationss = [];
     this._dataService.getData().subscribe(data=>{
       data.map(data => {
         if (data.present == true) {
