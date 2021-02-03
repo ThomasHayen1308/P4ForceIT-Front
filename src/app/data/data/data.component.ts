@@ -94,7 +94,6 @@ setDataSourceAttributes() {
   }
 
   ngAfterViewInit() {
-    console.log(this.paginator)
     this.dataSource.paginator=this.paginator;
   }
 
