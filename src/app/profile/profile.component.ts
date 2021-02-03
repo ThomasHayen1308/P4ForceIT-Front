@@ -24,6 +24,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
   userSub2: Subscription;
 
   darkMode: boolean = false;
+  sound: boolean = false;
 
   constructor(private router: Router, private _authService: AuthService, private _userService: UserService, private colorSchemeService: ColorSchemeService) { }
 
@@ -46,6 +47,16 @@ export class ProfileComponent implements OnInit, OnDestroy {
         this.darkMode = false;
       }
     }
+
+    //check soundslider
+    if (localStorage.getItem('prefers-sound')) {
+      let currentMode = localStorage.getItem('prefers-sound');
+      if (currentMode === 'on') {
+        this.sound = true;
+      } else {
+        this.sound = false;
+      }
+    }
   }
 
   onClickHome() {
@@ -59,6 +70,15 @@ export class ProfileComponent implements OnInit, OnDestroy {
       this.colorSchemeService.update('dark');
     } else {
       this.colorSchemeService.update('light');
+    }
+  }
+
+  setSound(event: MatSlideToggleChange) {
+    const modeValue = event.checked;
+    if (modeValue == true) {
+      localStorage.setItem('prefers-sound', 'on')
+    } else {
+      localStorage.setItem('prefers-sound', 'off')
     }
   }
 

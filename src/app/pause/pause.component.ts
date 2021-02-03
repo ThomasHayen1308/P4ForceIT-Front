@@ -77,8 +77,10 @@ export class PauseComponent implements OnInit {
     });
     if(alarm.valueOf() == true){
       this.openSnackBar(alarmKeukens);
-      this.alarmAudio.load();
-      this.alarmAudio.play();      
+      if (localStorage.getItem('prefers-sound') == 'on') {
+        this.alarmAudio.load();
+        this.alarmAudio.play();  
+      }    
     }
   }
 
