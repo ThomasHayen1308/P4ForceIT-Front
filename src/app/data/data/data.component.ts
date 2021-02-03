@@ -36,7 +36,17 @@ export class DataComponent implements OnInit {
 
   pageLoaded: boolean = false;
 
-  @ViewChild(MatPaginator) paginator: MatPaginator;
+  private paginator: MatPaginator;
+
+@ViewChild(MatPaginator) set matPaginator(mp: MatPaginator) {
+    this.paginator = mp;
+    this.setDataSourceAttributes();
+}
+
+setDataSourceAttributes() {
+    this.dataSource.paginator = this.paginator;
+
+}
 
   constructor(private router: Router, private _dataService: DataService) {
     
@@ -84,7 +94,7 @@ export class DataComponent implements OnInit {
   }
 
   ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
+    this.dataSource.paginator=this.paginator;
   }
 
   toHome(){
