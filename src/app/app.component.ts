@@ -12,6 +12,9 @@ import { ColorSchemeService } from '../color-scheme.service';
 export class AppComponent implements OnInit {
   constructor(private _authService: AuthService, private colorSchemeService: ColorSchemeService) {
     // Load Color Scheme
+    if (!localStorage.getItem('prefers-color')) {
+      localStorage.setItem('prefers-color', 'light');
+    }
     this.colorSchemeService.load();
   }
 

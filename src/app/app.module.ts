@@ -18,6 +18,7 @@ import { CheckInModule } from './check-in/check-in.module';
 import { DataModule } from './data/data.module';
 import { TrackingModule } from './tracking/tracking.module';
 import { ProfileModule } from './profile/profile.module';
+import { RankingModule } from './ranking/ranking.module';
 
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatDialogModule } from '@angular/material/dialog';
@@ -52,7 +53,8 @@ import { ErrorComponent } from './error/error.component';
     MatDialogModule,
     DataModule,
     TrackingModule,
-    ProfileModule
+    ProfileModule,
+    RankingModule
   ],
   providers: [
     {

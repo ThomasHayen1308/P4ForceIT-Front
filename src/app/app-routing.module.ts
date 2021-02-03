@@ -12,12 +12,14 @@ import { ReserveMeetingRoomComponent } from './reservations/reserve-meeting-room
 import { ErrorPageComponent } from './error-page/error-page.component';
 import { CheckInComponent } from './check-in/check-in.component';
 import { ConfirmComponent } from './check-in/confirm/confirm.component';
-
-import { AuthGuard } from './auth/guards/auth.guard';
-import { AdminGuard } from './auth/guards/admin.guard';
 import { TrackingComponent } from './tracking/tracking/tracking.component';
 import { DataComponent } from './data/data/data.component';
 import { ProfileComponent } from './profile/profile.component';
+import { RankingComponent } from './ranking/ranking.component';
+
+import { AuthGuard } from './auth/guards/auth.guard';
+import { AdminGuard } from './auth/guards/admin.guard';
+
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -47,6 +49,7 @@ const routes: Routes = [
   { path:'vandaag', component: DataComponent, canActivate: [AuthGuard]},
 
   { path: 'profiel', component: ProfileComponent, canActivate: [AuthGuard] },
+  { path: 'ranking', component: RankingComponent, canActivate: [AuthGuard] },
 
   { path: 'not-found', component: ErrorPageComponent, data: { message: 'Page not found!' } },
   { path: 'not-authorized', component: ErrorPageComponent, data: { message: 'You are not allowed to access this page!' } },
