@@ -1,6 +1,7 @@
 import { Time } from '@angular/common';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { Chair } from 'src/app/models/chair.model';
@@ -36,7 +37,17 @@ export class DataComponent implements OnInit {
 
   pageLoaded: boolean = false;
 
-  @ViewChild(MatPaginator) paginator: MatPaginator;
+  private paginator: MatPaginator;
+
+@ViewChild(MatPaginator) set matPaginator(mp: MatPaginator) {
+    this.paginator = mp;
+    this.setDataSourceAttributes();
+}
+
+setDataSourceAttributes() {
+    this.dataSource.paginator = this.paginator;
+
+}
 
   constructor(private router: Router, private _dataService: DataService) {
     
@@ -84,7 +95,8 @@ export class DataComponent implements OnInit {
   }
 
   ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
+    console.log(this.paginator)
+    this.dataSource.paginator=this.paginator;
   }
 
   toHome(){
@@ -96,6 +108,7 @@ export class DataComponent implements OnInit {
     this.dataSource.filter = filterValue.trim().toLowerCase();
 
     if (this.dataSource.paginator) {
+      console.log("ik kom hier")
       this.dataSource.paginator.firstPage();
     }
   }
