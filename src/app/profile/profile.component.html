@@ -18,7 +18,17 @@
     </div>
     <div class="settings">
       <!-- Settings -->
-      <mat-slide-toggle [(ngModel)]="darkMode" (change)="setLightDarkMode($event)">Dark mode</mat-slide-toggle> <mat-icon *ngIf="darkMode">nightlight_round</mat-icon><mat-icon *ngIf="!darkMode">wb_sunny</mat-icon>
+      <p>
+        <mat-slide-toggle [(ngModel)]="darkMode" (change)="setLightDarkMode($event)">Dark mode</mat-slide-toggle>
+        <mat-icon *ngIf="darkMode">nightlight_round</mat-icon>
+        <mat-icon *ngIf="!darkMode">wb_sunny</mat-icon>
+      </p>
+      <br>
+      <p>
+        <mat-slide-toggle [(ngModel)]="sound" (change)="setSound($event)">Sound</mat-slide-toggle>
+        <mat-icon *ngIf="sound">volume_up</mat-icon>
+        <mat-icon *ngIf="!sound">volume_off</mat-icon>
+      </p>
     </div>
     <div class="page-buttons">
       <p>
