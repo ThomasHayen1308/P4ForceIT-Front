@@ -31,6 +31,7 @@ export class ConfirmComponent implements OnInit, OnDestroy {
   userSub: Subscription;
   keySub: Subscription;
   reservationSub: Subscription;
+  userUpdateSub: Subscription;
 
   checkinError: boolean = false;
 
@@ -98,10 +99,35 @@ export class ConfirmComponent implements OnInit, OnDestroy {
       // Set present of the reservation of the user true ...
       if (this.currentUserReservationsToday.length > 0) {
         let i;
+        let coinsWilBeAdded: boolean = true;
         for (i = 0; i < this.currentUserReservations.length; i++) {
           let updateReservation: Reservation = this.currentUserReservations[i];
+
+          //  check if updateReservation present is not true => give coins
+          if (coinsWilBeAdded.valueOf() != false) {
+            console.log('lol')
+            if (updateReservation.present == true) {
+              console.log('if')
+              coinsWilBeAdded = false;
+            } else {
+              console.log('erlse')
+              coinsWilBeAdded = true;
+            }
+            console.log(coinsWilBeAdded)
+          }
+
           updateReservation.present = true;
           this._reservationService.updateReservation(updateReservation)
+
+          // update coins if => update them ones
+          if (i == this.currentUserReservations.length - 1) {
+            if (coinsWilBeAdded == true) {
+              console.log('Coins wil be added');
+              let newUser: User = this.currentUser;
+              newUser.coins += 10;
+              this.userUpdateSub = this._userService.updateUser(newUser).subscribe();
+            }
+          }
         }
         this.alreadyConfirmed = true;
       }
@@ -123,5 +149,8 @@ export class ConfirmComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.userSub.unsubscribe();
+    if (this.userUpdateSub) {
+      this.userUpdateSub.unsubscribe();
+    }
   }
 }

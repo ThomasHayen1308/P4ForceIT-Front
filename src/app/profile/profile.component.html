@@ -1,7 +1,25 @@
-<div class="page fade-in">
+<div class="page fade-in" *ngIf="pageLoaded">
   <mat-card>
     <h2>Mijn profiel</h2>
     <hr>
+    <div>
+      <h2>{{currentUser.name}}</h2>
+      <h2>{{currentUser.email}}</h2>
+      <!-- <mat-card class="card-accent">
+        <h2>Mijn coins</h2>
+        <img height="40px" src="../../assets/coin.png" alt="coin">
+        <h2>{{currentUser.coins}}</h2>
+      </mat-card> -->
+      <mat-card class='coin-card'>
+        <h2><img height="50px" src="../../assets/coin.png" alt="coin"> <span
+            class="number-coins">{{currentUser.coins}}</span></h2>
+      </mat-card>
+
+    </div>
+    <div class="settings">
+      <!-- Settings -->
+      <mat-slide-toggle [(ngModel)]="darkMode" (change)="setLightDarkMode($event)">Dark mode</mat-slide-toggle> <mat-icon *ngIf="darkMode">nightlight_round</mat-icon><mat-icon *ngIf="!darkMode">wb_sunny</mat-icon>
+    </div>
     <div class="page-buttons">
       <p>
         <button mat-raised-button color="primary" (click)="onClickHome()">
@@ -9,5 +27,6 @@
         </button>
       </p>
     </div>
+
   </mat-card>
 </div>
