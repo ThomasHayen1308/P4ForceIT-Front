@@ -1,0 +1,30 @@
+<div class="page fade-in" *ngIf="pageLoaded">
+    <mat-card>
+      <h2>Rankings</h2>
+      <hr>
+      <div class="ranking">
+        <img src="../../assets//Podium.png" alt="podium">
+        <table>
+          <tr>
+            <td>{{userListOrdered[2].name}}</td>
+            <td>{{userListOrdered[0].name}}</td>
+            <td>{{userListOrdered[1].name}}</td>
+          </tr>
+          <tr>
+            <td>{{userListOrdered[2].coins}}</td>
+            <td>{{userListOrdered[0].coins}}</td>
+            <td>{{userListOrdered[1].coins}}</td>
+          </tr>
+        </table>
+      </div>
+      <div class="page-buttons">
+        <p>
+          <button mat-raised-button color="primary" (click)="onClickHome()">
+            <mat-icon>home</mat-icon> Hoofdmenu
+          </button>
+        </p>
+      </div>
+  
+    </mat-card>
+  </div>
+  

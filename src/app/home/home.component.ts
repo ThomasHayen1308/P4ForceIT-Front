@@ -61,4 +61,8 @@ export class HomeComponent implements OnInit {
   toProfile() {
     this.router.navigate(['/profiel'])
   }
+
+  toRanking() {
+    this.router.navigate(['/ranking'])
+  }
 }

@@ -122,7 +122,7 @@ export class ConfirmComponent implements OnInit, OnDestroy {
           // update coins if => update them ones
           if (i == this.currentUserReservations.length - 1) {
             if (coinsWilBeAdded == true) {
-              console.log('Coins wil be added');
+              console.log('Coins will be added');
               let newUser: User = this.currentUser;
               newUser.coins += 10;
               this.userUpdateSub = this._userService.updateUser(newUser).subscribe();
