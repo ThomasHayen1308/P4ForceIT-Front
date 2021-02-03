@@ -11,9 +11,14 @@
         <h2>{{currentUser.coins}}</h2>
       </mat-card> -->
       <mat-card class='coin-card'>
-        <h2><img height="50px" src="../../assets/coin.png" alt="coin"> <span class="number-coins">{{currentUser.coins}}</span></h2>
+        <h2><img height="50px" src="../../assets/coin.png" alt="coin"> <span
+            class="number-coins">{{currentUser.coins}}</span></h2>
       </mat-card>
-     
+
+    </div>
+    <div class="settings">
+      <!-- Settings -->
+      <mat-slide-toggle [(ngModel)]="darkMode" (change)="setLightDarkMode($event)">Dark mode</mat-slide-toggle> <mat-icon *ngIf="darkMode">nightlight_round</mat-icon><mat-icon *ngIf="!darkMode">wb_sunny</mat-icon>
     </div>
     <div class="page-buttons">
       <p>
@@ -22,9 +27,6 @@
         </button>
       </p>
     </div>
-
-    <!-- <button (click)="setLightDarkMode()">Dark Mode</button> -->
-    <mat-slide-toggle [(ngModel)]="darkMode" (change)="setLightDarkMode($event)">Dark mode</mat-slide-toggle>
 
   </mat-card>
 </div>
