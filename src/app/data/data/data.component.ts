@@ -106,7 +106,6 @@ setDataSourceAttributes() {
     this.dataSource.filter = filterValue.trim().toLowerCase();
 
     if (this.dataSource.paginator) {
-      console.log("ik kom hier")
       this.dataSource.paginator.firstPage();
     }
   }
