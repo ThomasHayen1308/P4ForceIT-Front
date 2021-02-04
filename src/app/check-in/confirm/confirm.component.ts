@@ -63,6 +63,9 @@ export class ConfirmComponent implements OnInit, OnDestroy {
         reservations.map(reservation => {
           // check if reservation is today, if true, add to array
           if (this.isToday(reservation.date)) {
+            console.log("%c Reservations today", "color: orange")
+            console.log(reservation)
+            console.log(this.isToday(reservation.date));
             this.reservationsToday = true;
             this.currentUserReservationsToday.push(reservation);
             if (reservation.present && this.alreadyConfirmed != false) {
@@ -100,8 +103,8 @@ export class ConfirmComponent implements OnInit, OnDestroy {
       if (this.currentUserReservationsToday.length > 0) {
         let i;
         let coinsWilBeAdded: boolean = true;
-        for (i = 0; i < this.currentUserReservations.length; i++) {
-          let updateReservation: Reservation = this.currentUserReservations[i];
+        for (i = 0; i < this.currentUserReservationsToday.length; i++) {
+          let updateReservation: Reservation = this.currentUserReservationsToday[i];
 
           //  check if updateReservation present is not true => give coins
           if (coinsWilBeAdded.valueOf() != false) {
@@ -110,7 +113,7 @@ export class ConfirmComponent implements OnInit, OnDestroy {
               console.log('if')
               coinsWilBeAdded = false;
             } else {
-              console.log('erlse')
+              console.log('else')
               coinsWilBeAdded = true;
             }
             console.log(coinsWilBeAdded)

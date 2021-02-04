@@ -27,6 +27,7 @@ interface showReservationForUser {
   chair: String,
   campus: String,
   section: String,
+  present: boolean
 }
 
 @Component({
@@ -83,6 +84,7 @@ export class MyReservationsComponent implements OnInit, OnDestroy {
             chair: reservation.chair.name,
             campus: reservation.chair.section.campus.name,
             section: reservation.chair.section.name,
+            present: reservation.present
           })
         });
         this.dataSource.data = this.showReservationsForUser;
