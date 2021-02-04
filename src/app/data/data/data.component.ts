@@ -28,6 +28,9 @@ interface reservationss {
 
 export class DataComponent implements OnInit {
 
+  totalCheckedIn: number = 0;
+  totalReservations: number = 0;
+
   reservationss: reservationss[] = [];
   reservations : Reservation[] = [];
 
@@ -69,7 +72,9 @@ setDataSourceAttributes() {
             status: "Ingechecked"
         
 
-        })}
+        })
+        this.totalCheckedIn += 1;
+      }
         else{
             this.reservationss.push({
               id: data.id,
@@ -87,7 +92,7 @@ setDataSourceAttributes() {
           })}
         
       });
-    
+      this.totalReservations = this.reservationss.length;    
       this.dataSource.data = this.reservationss;
       this.pageLoaded = true;
     })

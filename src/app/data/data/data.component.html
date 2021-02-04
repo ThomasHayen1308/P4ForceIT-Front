@@ -8,6 +8,8 @@
                 <input matInput (keyup)="applyFilter($event)" placeholder="Ex. djanssens" #input>
             </mat-form-field>
 
+            <p>Ingechecked: {{totalCheckedIn}} / {{totalReservations}}</p>
+
             <div class="mat-elevation-z8">
               <table mat-table [dataSource]="dataSource" multiTemplateDataRows class="reservatietabel">
                 <ng-container matColumnDef="Gebruiker">
@@ -56,7 +58,7 @@
         </div>
         <div class="page-buttons">
             <p>
-              <button mat-raised-button color="warn" (click)="reload()"><mat-icon>cached</mat-icon> Herladen</button>
+              <button mat-raised-button color="warn" (click)="reload()"><mat-icon>cached-</mat-icon> Herladen</button>
             </p>
             <p>
               <button mat-raised-button color="primary" (click)="toHome()"><mat-icon>home</mat-icon> Hoofdmenu</button>
