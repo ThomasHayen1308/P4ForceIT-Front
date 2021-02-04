@@ -16,7 +16,7 @@ export class AppComponent implements OnInit {
       localStorage.setItem('prefers-color', 'light');
     }
     if (!localStorage.getItem('prefers-sound')) {
-      localStorage.setItem('prefers-sound', 'on');
+      localStorage.setItem('prefers-sound', 'off');
     }
     this.colorSchemeService.load();
   }
